@@ -1,0 +1,24 @@
+@use 'styles/scss' as *;
+
+.wrapper {
+	display: grid;
+	grid-template:
+		'header header header' auto
+		'. body .' 1fr
+		'footer footer footer' auto
+		/ auto minmax(320px, 1200px) auto;
+	gap: 40px 30px;
+	min-height: 100vh;
+
+	.header {
+		grid-area: header;
+	}
+
+	.body {
+		grid-area: body;
+	}
+
+	.footer {
+		grid-area: footer;
+	}
+}

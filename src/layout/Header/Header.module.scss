@@ -1,0 +1,13 @@
+@use 'styles/scss' as *;
+
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 5px;
+	border-bottom: 1px solid $primary;
+
+	svg {
+		width: 90px;
+	}
+}
