@@ -4,9 +4,11 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"dev": "concurrently \"npm run server\" \"npm start\"",
 		"start": "webpack serve --env port=3000",
 		"build:prod": "webpack --env mode=production",
 		"build:dev": "webpack --env mode=development",
+		"server": "json-server -w server/db.json -p 3001",
 		"lint:ts": "eslint \"**/*.{ts,tsx}\"",
 		"lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix"
 	},
@@ -20,6 +22,7 @@
 		"@types/webpack-dev-server": "^4.7.2",
 		"@typescript-eslint/eslint-plugin": "^5.59.7",
 		"@typescript-eslint/parser": "^5.59.7",
+		"concurrently": "^8.2.0",
 		"css-loader": "^6.6.0",
 		"eslint": "^8.41.0",
 		"eslint-plugin-react": "^7.32.2",
@@ -27,6 +30,7 @@
 		"eslint-webpack-plugin": "^4.0.1",
 		"file-loader": "^6.2.0",
 		"html-webpack-plugin": "^5.5.0",
+		"json-server": "^0.17.3",
 		"mini-css-extract-plugin": "^2.5.3",
 		"sass": "^1.49.9",
 		"sass-loader": "^12.6.0",
