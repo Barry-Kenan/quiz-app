@@ -1,5 +1,6 @@
-// import { all, fork } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
+import quizSaga from './quiz/quiz.saga';
 
 export default function* rootSaga() {
-	// yield all([fork(LyricsSaga)]);
+	yield all([fork(quizSaga)]);
 }
