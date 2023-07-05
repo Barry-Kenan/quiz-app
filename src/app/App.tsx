@@ -1,19 +1,30 @@
-import { Button } from 'antd';
 import 'antd/dist/reset.css';
+import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
 import { withLayout } from 'layout/Layout';
-import { FC } from 'react';
-import styles from './App.module.scss';
+import { FinishPage, GamePage, StartPage } from 'pages';
+import { FC, useEffect } from 'react';
 
 const App: FC = () => {
-	const { count } = useAppSelector(state => state.quizReducer);
-	return (
-		<div className={styles.wrapper}>
-			App
-			<Button type='primary'>Primary Button</Button>
-			{count}
-		</div>
-	);
+	const { status } = useAppSelector(state => state.quizReducer);
+	const { getQuestionsAction } = useActions();
+
+	useEffect(() => {
+		getQuestionsAction();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	switch (status) {
+		case 'start':
+			return <StartPage />;
+		case 'play':
+			return <GamePage />;
+		case 'finish':
+			return <FinishPage />;
+		default: {
+			const never: never = status;
+			return never;
+		}
+	}
 };
 
 export default withLayout(App);

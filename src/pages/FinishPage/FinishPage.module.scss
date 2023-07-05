@@ -1,0 +1,13 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+
+	button {
+		height: auto;
+		font-size: 18px;
+	}
+}
