@@ -11,11 +11,10 @@ const QuestionCard: FC<QuestionCardProps> = ({
 	setChecked
 }) => {
 	const onChange = (e: CheckboxChangeEvent) => {
-		console.log(e.target.name);
 		setChecked(e.target.name);
 	};
 	return (
-		<Card title={title}>
+		<Card title={title} className={styles.card}>
 			<ul className={styles.choices}>
 				{choices.map(k => (
 					<Checkbox

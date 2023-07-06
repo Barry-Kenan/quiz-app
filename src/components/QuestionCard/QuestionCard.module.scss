@@ -1,4 +1,9 @@
-.choices {
-	display: flex;
-	flex-direction: column;
+.card {
+	text-align: center;
+
+	.choices {
+		display: flex;
+		flex-direction: column;
+		width: 300px;
+	}
 }
