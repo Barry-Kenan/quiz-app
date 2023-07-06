@@ -1,5 +1,6 @@
 import App from 'app/App';
 import ReactDOM from 'react-dom';
+import './styles/styles.scss';
 
 const root = <App />;
 
