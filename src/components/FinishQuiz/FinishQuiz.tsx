@@ -1,17 +1,12 @@
-import { Button, Typography } from 'antd';
-import { useActions } from 'hooks/action';
+import { Typography } from 'antd';
 import { useAppSelector } from 'hooks/redux';
 import { FC } from 'react';
-import styles from './FinishPage.module.scss';
+import styles from './FinishQuiz.module.scss';
 
 const { Title, Text } = Typography;
 
-const FinishPage: FC = () => {
+const FinishQuiz: FC = () => {
 	const { count, questionsCount } = useAppSelector(state => state.quizReducer);
-	const { changeStatus } = useActions();
-	const handleClick = () => {
-		changeStatus('start');
-	};
 
 	return (
 		<div className={styles.wrapper}>
@@ -20,11 +15,8 @@ const FinishPage: FC = () => {
 			</Title>
 			<Text mark>Правильных ответов: {count}</Text>
 			<Text mark>Неправильных ответов: {questionsCount - count}</Text>
-			<Button type='primary' className={styles.button} onClick={handleClick}>
-				Начать заново
-			</Button>
 		</div>
 	);
 };
 
-export default FinishPage;
+export default FinishQuiz;
