@@ -1,13 +1,15 @@
 import { quizApi } from 'helpers/api/api';
-import { Question } from 'interfaces/question.interface';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 import { quizActions } from 'store/reducers/quiz/quiz.actions';
-import { QuizActionEnum } from 'store/reducers/quiz/quiz.types';
+import { GetQuestions, QuizActionEnum } from 'store/reducers/quiz/quiz.types';
 
-export function* getQuestionsSaga() {
+export function* getQuestionsSaga({ payload }: GetQuestions) {
 	yield put(quizActions.loading(true));
-	const data: Question[] = yield quizApi.getQuestions();
-
+	const { data, headers } = yield quizApi.getQuestions(
+		payload.page,
+		payload.pageSize
+	);
+	yield put(quizActions.changeQuestionsCount(headers['x-total-count']));
 	yield put(quizActions.setQuestions(data));
 	yield put(quizActions.loading(false));
 }

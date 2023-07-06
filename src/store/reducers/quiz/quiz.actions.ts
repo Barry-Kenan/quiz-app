@@ -21,8 +21,17 @@ const setQuestions = (payload: Question[]): QuizAction => ({
 	payload
 });
 
-const getQuestionsAction = (): QuizAction => ({
-	type: QuizActionEnum.GET_QUESTIONS
+const getQuestionsAction = (payload: {
+	page: number;
+	pageSize: number;
+}): QuizAction => ({
+	type: QuizActionEnum.GET_QUESTIONS,
+	payload
+});
+
+const changeQuestionsCount = (payload: number): QuizAction => ({
+	type: QuizActionEnum.CHANGE_QUESTIONS_COUNT,
+	payload
 });
 
 export const quizActions = {
@@ -30,5 +39,6 @@ export const quizActions = {
 	changeStatus,
 	loading,
 	setQuestions,
-	getQuestionsAction
+	getQuestionsAction,
+	changeQuestionsCount
 };

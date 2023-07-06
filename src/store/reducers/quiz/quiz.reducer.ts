@@ -6,13 +6,15 @@ interface QuizState {
 	count: number;
 	status: Status;
 	questions: Question[];
+	questionsCount: number;
 }
 
 const initialState: QuizState = {
 	loading: false,
 	count: 0,
 	status: 'start',
-	questions: []
+	questions: [],
+	questionsCount: 0
 };
 
 const quizReducer = (state = initialState, action: QuizAction): QuizState => {
@@ -25,6 +27,8 @@ const quizReducer = (state = initialState, action: QuizAction): QuizState => {
 			return { ...state, loading: action.payload };
 		case QuizActionEnum.SET_QUESTIONS:
 			return { ...state, questions: action.payload };
+		case QuizActionEnum.CHANGE_QUESTIONS_COUNT:
+			return { ...state, questionsCount: action.payload };
 		default:
 			return state;
 	}

@@ -5,7 +5,8 @@ export enum QuizActionEnum {
 	CHANGE_STATUS = 'CHANGE_STATUS',
 	LOADING = 'LOADING_QUESTIONS',
 	SET_QUESTIONS = 'SET_QUESTIONS',
-	GET_QUESTIONS = 'GET_QUESTIONS'
+	GET_QUESTIONS = 'GET_QUESTIONS',
+	CHANGE_QUESTIONS_COUNT = 'CHANGE_QUESTIONS_COUNT'
 }
 
 export type Status = 'start' | 'play' | 'finish';
@@ -32,6 +33,12 @@ export interface SetQuestions {
 
 export interface GetQuestions {
 	type: QuizActionEnum.GET_QUESTIONS;
+	payload: { page: number; pageSize: number };
+}
+
+export interface ChangeQuestionsCount {
+	type: QuizActionEnum.CHANGE_QUESTIONS_COUNT;
+	payload: number;
 }
 
 export type QuizAction =
@@ -39,4 +46,5 @@ export type QuizAction =
 	| ChangeStatusAction
 	| Loading
 	| SetQuestions
-	| GetQuestions;
+	| GetQuestions
+	| ChangeQuestionsCount;
