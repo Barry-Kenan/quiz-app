@@ -14,7 +14,7 @@ interface QuizState {
 const initialState: QuizState = {
 	loading: false,
 	count: 0,
-	status: 'finish',
+	status: 'start',
 	questions: [],
 	questionsCount: 0,
 	answers: null
