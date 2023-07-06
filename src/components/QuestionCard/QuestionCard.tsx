@@ -1,5 +1,6 @@
 import { Card, Checkbox } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { useAppSelector } from 'hooks/redux';
 import { FC } from 'react';
 import styles from './QuestionCard.module.scss';
 import { QuestionCardProps } from './QuestionCard.props';
@@ -10,6 +11,8 @@ const QuestionCard: FC<QuestionCardProps> = ({
 	checked,
 	setChecked
 }) => {
+	const { status } = useAppSelector(state => state.quizReducer);
+
 	const onChange = (e: CheckboxChangeEvent) => {
 		setChecked(e.target.name);
 	};
@@ -22,6 +25,7 @@ const QuestionCard: FC<QuestionCardProps> = ({
 						checked={checked == k.id}
 						name={k.id}
 						onChange={onChange}
+						disabled={status == 'finish'}
 					>
 						{k.content}
 					</Checkbox>
