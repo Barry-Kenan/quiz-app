@@ -1,8 +1,9 @@
+import { IAnswers } from './answers.interface';
+
 export interface Question {
-	id: string;
+	id: keyof IAnswers;
 	prompt: string;
 	choices: Choice[];
-	answer: string;
 }
 
 export interface Choice {
