@@ -1,3 +1,4 @@
+import { IAnswers } from 'interfaces/answers.interface';
 import { Question } from 'interfaces/question.interface';
 import { QuizAction, QuizActionEnum, Status } from './quiz.types';
 
@@ -21,6 +22,11 @@ const setQuestions = (payload: Question[]): QuizAction => ({
 	payload
 });
 
+const setAnswers = (payload: IAnswers): QuizAction => ({
+	type: QuizActionEnum.SET_ANSWERS,
+	payload
+});
+
 const getQuestionsAction = (payload: {
 	page: number;
 	pageSize: number;
@@ -40,5 +46,6 @@ export const quizActions = {
 	loading,
 	setQuestions,
 	getQuestionsAction,
-	changeQuestionsCount
+	changeQuestionsCount,
+	setAnswers
 };

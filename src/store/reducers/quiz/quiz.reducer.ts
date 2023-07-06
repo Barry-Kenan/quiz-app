@@ -1,4 +1,5 @@
 import { Question } from 'interfaces/question.interface';
+import { IAnswers } from './../../../interfaces/answers.interface';
 import { QuizAction, QuizActionEnum, Status } from './quiz.types';
 
 interface QuizState {
@@ -7,14 +8,16 @@ interface QuizState {
 	status: Status;
 	questions: Question[];
 	questionsCount: number;
+	answers: IAnswers;
 }
 
 const initialState: QuizState = {
 	loading: false,
 	count: 0,
-	status: 'start',
+	status: 'finish',
 	questions: [],
-	questionsCount: 0
+	questionsCount: 0,
+	answers: null
 };
 
 const quizReducer = (state = initialState, action: QuizAction): QuizState => {
@@ -29,6 +32,8 @@ const quizReducer = (state = initialState, action: QuizAction): QuizState => {
 			return { ...state, questions: action.payload };
 		case QuizActionEnum.CHANGE_QUESTIONS_COUNT:
 			return { ...state, questionsCount: action.payload };
+		case QuizActionEnum.SET_ANSWERS:
+			return { ...state, answers: action.payload };
 		default:
 			return state;
 	}
