@@ -1,3 +1,5 @@
+@use 'styles/scss' as *;
+
 .wrapper {
 	.form {
 		display: flex;
@@ -6,6 +8,20 @@
 		align-items: center;
 		max-height: 70vh;
 		overflow: auto;
+
+		&::-webkit-scrollbar {
+			width: 12px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: $white;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: $primary;
+			border: 3px solid $gray-light;
+			border-radius: 20px;
+		}
 	}
 
 	.pagination {
