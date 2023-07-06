@@ -1,27 +1,44 @@
-import { Button } from 'antd';
+import { Button, Pagination } from 'antd';
 import { QuestionCard } from 'components';
+import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styles from './GamePage.module.scss';
 
 const GamePage: FC = () => {
-	const { questions: q } = useAppSelector(state => state.quizReducer);
+	const [lastPage, setLastPage] = useState<boolean>(false);
+	const { questions: q, questionsCount } = useAppSelector(
+		state => state.quizReducer
+	);
+	const { changeStatus, getQuestionsAction, changeScore } = useActions();
 
-	const { control, handleSubmit } = useForm();
+	const {
+		control,
+		handleSubmit,
+		formState: { isValid, isDirty }
+	} = useForm();
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const onSubmit = (formData: any) => {
 		console.log(formData);
+		changeScore(10);
+		changeStatus('finish');
+	};
+
+	const onChange = (page: number, pageSize: number) => {
+		getQuestionsAction({ page, pageSize });
+		setLastPage(questionsCount / pageSize == page);
 	};
 
 	return (
 		<div className={styles.wrapper}>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				{q.map((e, id) => (
+			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+				{q.map(e => (
 					<Controller
-						key={id}
+						key={e.id}
 						control={control}
-						name={'question' + (id + 1)}
+						name={e.id}
 						rules={{
 							required: {
 								value: true,
@@ -38,10 +55,25 @@ const GamePage: FC = () => {
 						)}
 					/>
 				))}
-				<Button type='primary' htmlType='submit'>
-					Submit
-				</Button>
+				{lastPage && (
+					<Button
+						type='primary'
+						htmlType='submit'
+						disabled={!isValid || !isDirty}
+					>
+						Submit
+					</Button>
+				)}
 			</form>
+			<div className={styles.pagination}>
+				<Pagination
+					defaultCurrent={1}
+					total={questionsCount}
+					pageSize={5}
+					onChange={onChange}
+					disabled={!isValid && !lastPage}
+				/>
+			</div>
 		</div>
 	);
 };
