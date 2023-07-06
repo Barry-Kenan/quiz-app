@@ -1,8 +1,8 @@
 export interface Question {
-	title: string;
+	id: string;
 	prompt: string;
 	choices: Choice[];
-	answer: string[][];
+	answer: string;
 }
 
 export interface Choice {

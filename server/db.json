@@ -1,5 +1,114 @@
 {
-	"questions": {
-		"a": "?"
-	}
+	"questions": [
+		{
+			"id": "question1",
+			"prompt": "Столица Франции",
+			"choices": [
+				{ "id": "a", "content": "Берн" },
+				{ "id": "b", "content": "Вена" },
+				{ "id": "c", "content": "Мадрид" },
+				{ "id": "d", "content": "Париж" }
+			],
+			"answer": "d"
+		},
+		{
+			"id": "question2",
+			"prompt": "Столица Италии",
+			"choices": [
+				{ "id": "a", "content": "Рим" },
+				{ "id": "b", "content": "Рига" },
+				{ "id": "c", "content": "Монако" },
+				{ "id": "d", "content": "Дублин" }
+			],
+			"answer": "a"
+		},
+		{
+			"id": "question3",
+			"prompt": "Столица Великобритании",
+			"choices": [
+				{ "id": "a", "content": "Осло" },
+				{ "id": "b", "content": "Лондон" },
+				{ "id": "c", "content": "Лиссабон" },
+				{ "id": "d", "content": "Таллин" }
+			],
+			"answer": "b"
+		},
+		{
+			"id": "question4",
+			"prompt": "Столица Эстонии",
+			"choices": [
+				{ "id": "a", "content": "Тирана" },
+				{ "id": "b", "content": "Рига" },
+				{ "id": "c", "content": "Таллин" },
+				{ "id": "d", "content": "Стокгольм" }
+			],
+			"answer": "c"
+		},
+		{
+			"id": "question5",
+			"prompt": "Столица России",
+			"choices": [
+				{ "id": "a", "content": "Киев" },
+				{ "id": "b", "content": "Минск" },
+				{ "id": "c", "content": "Москва" },
+				{ "id": "d", "content": "Кишинёв" }
+			],
+			"answer": "c"
+		},
+		{
+			"id": "question6",
+			"prompt": "Столица Германии",
+			"choices": [
+				{ "id": "a", "content": "Прага" },
+				{ "id": "b", "content": "Рига" },
+				{ "id": "c", "content": "Вена" },
+				{ "id": "d", "content": "Берлин" }
+			],
+			"answer": "d"
+		},
+		{
+			"id": "question7",
+			"prompt": "Столица Нидерландов",
+			"choices": [
+				{ "id": "a", "content": "Афины" },
+				{ "id": "b", "content": "Братислава" },
+				{ "id": "c", "content": "Амстердам" },
+				{ "id": "d", "content": "Осло" }
+			],
+			"answer": "c"
+		},
+		{
+			"id": "question8",
+			"prompt": "Столица Хорватии",
+			"choices": [
+				{ "id": "a", "content": "Загреб" },
+				{ "id": "b", "content": "Сан-Марино" },
+				{ "id": "c", "content": "Белград" },
+				{ "id": "d", "content": "Загреб" }
+			],
+			"answer": "d"
+		},
+		{
+			"id": "question9",
+			"prompt": "Столица Ирана",
+			"choices": [
+				{ "id": "a", "content": "Тегеран" },
+				{ "id": "b", "content": "Исламабад" },
+				{ "id": "c", "content": "Астана" },
+				{ "id": "d", "content": "Ташкент" }
+			],
+			"answer": "a"
+		},
+		{
+			"id": "question10",
+			"prompt": "Столица Туркменистана",
+			"choices": [
+				{ "id": "a", "content": "Ташкент" },
+				{ "id": "b", "content": "Ашхабад" },
+				{ "id": "c", "content": "Астана" },
+				{ "id": "d", "content": "Хазар" }
+			],
+			"answer": "a"
+		}
+	]
 }
