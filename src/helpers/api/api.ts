@@ -12,5 +12,8 @@ export const quizApi = {
 				_page
 			}
 		});
+	},
+	getAnswers() {
+		return instanceApi.get('answers').then(res => res.data);
 	}
 };
