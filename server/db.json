@@ -8,8 +8,7 @@
 				{ "id": "b", "content": "Вена" },
 				{ "id": "c", "content": "Мадрид" },
 				{ "id": "d", "content": "Париж" }
-			],
-			"answer": "d"
+			]
 		},
 		{
 			"id": "question2",
@@ -19,8 +18,7 @@
 				{ "id": "b", "content": "Рига" },
 				{ "id": "c", "content": "Монако" },
 				{ "id": "d", "content": "Дублин" }
-			],
-			"answer": "a"
+			]
 		},
 		{
 			"id": "question3",
@@ -30,8 +28,7 @@
 				{ "id": "b", "content": "Лондон" },
 				{ "id": "c", "content": "Лиссабон" },
 				{ "id": "d", "content": "Таллин" }
-			],
-			"answer": "b"
+			]
 		},
 		{
 			"id": "question4",
@@ -41,8 +38,7 @@
 				{ "id": "b", "content": "Рига" },
 				{ "id": "c", "content": "Таллин" },
 				{ "id": "d", "content": "Стокгольм" }
-			],
-			"answer": "c"
+			]
 		},
 		{
 			"id": "question5",
@@ -52,8 +48,7 @@
 				{ "id": "b", "content": "Минск" },
 				{ "id": "c", "content": "Москва" },
 				{ "id": "d", "content": "Кишинёв" }
-			],
-			"answer": "c"
+			]
 		},
 		{
 			"id": "question6",
@@ -63,8 +58,7 @@
 				{ "id": "b", "content": "Рига" },
 				{ "id": "c", "content": "Вена" },
 				{ "id": "d", "content": "Берлин" }
-			],
-			"answer": "d"
+			]
 		},
 		{
 			"id": "question7",
@@ -74,19 +68,17 @@
 				{ "id": "b", "content": "Братислава" },
 				{ "id": "c", "content": "Амстердам" },
 				{ "id": "d", "content": "Осло" }
-			],
-			"answer": "c"
+			]
 		},
 		{
 			"id": "question8",
 			"prompt": "Столица Хорватии",
 			"choices": [
-				{ "id": "a", "content": "Загреб" },
+				{ "id": "a", "content": "Братислава" },
 				{ "id": "b", "content": "Сан-Марино" },
 				{ "id": "c", "content": "Белград" },
 				{ "id": "d", "content": "Загреб" }
-			],
-			"answer": "d"
+			]
 		},
 		{
 			"id": "question9",
@@ -96,8 +88,7 @@
 				{ "id": "b", "content": "Исламабад" },
 				{ "id": "c", "content": "Астана" },
 				{ "id": "d", "content": "Ташкент" }
-			],
-			"answer": "a"
+			]
 		},
 		{
 			"id": "question10",
@@ -107,8 +98,19 @@
 				{ "id": "b", "content": "Ашхабад" },
 				{ "id": "c", "content": "Астана" },
 				{ "id": "d", "content": "Хазар" }
-			],
-			"answer": "a"
+			]
 		}
-	]
+	],
+	"answers": {
+		"question1": "d",
+		"question2": "a",
+		"question3": "b",
+		"question4": "c",
+		"question5": "c",
+		"question6": "d",
+		"question7": "c",
+		"question8": "d",
+		"question9": "a",
+		"question10": "b"
+	}
 }
