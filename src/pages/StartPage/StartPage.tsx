@@ -17,9 +17,11 @@ const StartPage: FC = () => {
 	}, []);
 	return (
 		<div className={styles.wrapper}>
-			<Title level={2}>Quiz</Title>
+			<Title level={2} className={styles.title}>
+				Квиз
+			</Title>
 			<Button type='primary' className={styles.button} onClick={handleClick}>
-				Start Game
+				Начать Игру
 			</Button>
 		</div>
 	);
