@@ -1,28 +1,32 @@
 import { Button, Pagination } from 'antd';
 import { QuestionCard } from 'components';
+import { countScore } from 'helpers/quiz/countScore';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
+import { IAnswers } from 'interfaces/answers.interface';
 import { FC, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styles from './GamePage.module.scss';
 
 const GamePage: FC = () => {
 	const [lastPage, setLastPage] = useState<boolean>(false);
-	const { questions: q, questionsCount } = useAppSelector(
-		state => state.quizReducer
-	);
+	const {
+		questions: q,
+		questionsCount,
+		answers
+	} = useAppSelector(state => state.quizReducer);
 	const { changeStatus, getQuestionsAction, changeScore } = useActions();
 
 	const {
 		control,
 		handleSubmit,
 		formState: { isValid, isDirty }
-	} = useForm();
+	} = useForm<IAnswers>();
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const onSubmit = (formData: any) => {
+	const onSubmit = (formData: IAnswers) => {
 		console.log(formData);
-		changeScore(10);
+		const score = countScore(answers, formData);
+		changeScore(score);
 		changeStatus('finish');
 	};
 
@@ -61,7 +65,7 @@ const GamePage: FC = () => {
 						htmlType='submit'
 						disabled={!isValid || !isDirty}
 					>
-						Submit
+						Завершить игру
 					</Button>
 				)}
 			</form>
