@@ -5,7 +5,12 @@ export const instanceApi = axios.create({
 });
 
 export const quizApi = {
-	getQuestions() {
-		return instanceApi.get('questions').then(res => res.data);
+	getQuestions(_page: number, _limit: number) {
+		return instanceApi.get('questions', {
+			params: {
+				_limit,
+				_page
+			}
+		});
 	}
 };
