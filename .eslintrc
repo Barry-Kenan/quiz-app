@@ -10,7 +10,8 @@
 			{
 				"allowSingleExtends": true
 			}
-		]
+		],
+		"react-hooks/exhaustive-deps": "off"
 	},
 	"extends": [
 		"eslint:recommended",

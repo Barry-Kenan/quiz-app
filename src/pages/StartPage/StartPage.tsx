@@ -18,8 +18,8 @@ const StartPage: FC = () => {
 
 	useEffect(() => {
 		getQuestionsAction({ page: 1, pageSize: 5 });
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	return (
 		<div className={styles.wrapper}>
 			<Title level={2} className={styles.title}>
