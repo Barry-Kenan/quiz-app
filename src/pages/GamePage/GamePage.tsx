@@ -1,6 +1,6 @@
 import { Button, Pagination } from 'antd';
 import cn from 'classnames';
-import { FinishQuiz, QuestionCard } from 'components';
+import { FinishQuiz, Loading, QuestionCard } from 'components';
 import { countScore } from 'helpers/quiz/countScore';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
@@ -15,7 +15,8 @@ const GamePage: FC = () => {
 		questions: q,
 		questionsCount,
 		answers,
-		status
+		status,
+		loading
 	} = useAppSelector(state => state.quizReducer);
 	const { changeStatus, getQuestionsAction, changeScore } = useActions();
 
@@ -45,6 +46,10 @@ const GamePage: FC = () => {
 			behavior: 'smooth'
 		});
 	};
+
+	if (loading) {
+		return <Loading />;
+	}
 
 	return (
 		<div className={styles.wrapper}>
