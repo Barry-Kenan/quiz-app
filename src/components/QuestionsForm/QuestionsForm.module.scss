@@ -1,0 +1,36 @@
+@use 'styles/scss' as *;
+
+.form {
+	.questions {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		align-items: center;
+		max-height: 68vh;
+		overflow: auto;
+
+		&.finish {
+			max-height: 52vh;
+		}
+
+		&::-webkit-scrollbar {
+			width: 12px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: $white;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: $primary;
+			border: 3px solid $gray-light;
+			border-radius: 20px;
+		}
+	}
+
+	.button {
+		display: flex;
+		justify-content: center;
+		margin-top: 10px;
+	}
+}
