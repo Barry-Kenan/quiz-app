@@ -15,7 +15,7 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	questionsDivRef,
 	setIsValid
 }) => {
-	const { changeStatus, changeScore } = useActions();
+	const { changeStatus, changeScore, loading } = useActions();
 	const { questions, answers, status } = useAppSelector(
 		state => state.quizReducer
 	);
@@ -30,11 +30,12 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	} = useForm<IAnswers>();
 
 	const onSubmit = (formData: IAnswers) => {
-		console.log(formData);
+		loading(true);
 		const score = countScore(answers, formData);
 		changeScore(score);
 		changeStatus('finish');
 		scrollToTop(questionsDivRef);
+		loading(false);
 	};
 
 	useEffect(() => {

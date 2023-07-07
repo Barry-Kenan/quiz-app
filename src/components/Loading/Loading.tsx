@@ -5,7 +5,7 @@ import styles from './Loading.module.scss';
 const Loading: FC = () => {
 	return (
 		<div className={styles.loading}>
-			<Spin tip='Загрузка вопросов...' size='large' />
+			<Spin size='large' />
 		</div>
 	);
 };
