@@ -1,4 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { MutableRefObject } from 'react';
+
+export const scrollToTop = (scrollRef: MutableRefObject<HTMLDivElement>) => {
+	scrollRef.current.scroll({
+		top: 0,
+		behavior: 'smooth'
+	});
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function countScore(answers: any, form: any) {
 	let correctAnswers = 0;
 	const keys = Object.keys(answers);
