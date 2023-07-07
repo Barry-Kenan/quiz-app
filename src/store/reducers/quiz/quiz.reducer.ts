@@ -1,6 +1,10 @@
+import { IAnswers } from 'interfaces/answers.interface';
 import { Question } from 'interfaces/question.interface';
-import { IAnswers } from './../../../interfaces/answers.interface';
-import { QuizAction, QuizActionEnum, Status } from './quiz.types';
+import {
+	QuizAction,
+	QuizActionEnum,
+	Status
+} from 'store/action-types/quiz/quiz.types';
 
 interface QuizState {
 	loading: boolean;

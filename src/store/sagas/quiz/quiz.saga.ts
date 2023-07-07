@@ -1,8 +1,13 @@
 import { quizApi } from 'helpers/api/api';
 import { IAnswers } from 'interfaces/answers.interface';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
-import { quizActions } from 'store/reducers/quiz/quiz.actions';
-import { GetQuestions, QuizActionEnum } from 'store/reducers/quiz/quiz.types';
+import {
+	GetQuestions,
+	QuizActionEnum
+} from 'store/action-types/quiz/quiz.types';
+import { rootActions } from 'store/actions';
+
+const { quizActions } = rootActions;
 
 export function* getQuestionsSaga({ payload }: GetQuestions) {
 	yield put(quizActions.loading(true));

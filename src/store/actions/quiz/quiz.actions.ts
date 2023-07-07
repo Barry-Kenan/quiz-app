@@ -1,6 +1,10 @@
 import { IAnswers } from 'interfaces/answers.interface';
 import { Question } from 'interfaces/question.interface';
-import { QuizAction, QuizActionEnum, Status } from './quiz.types';
+import {
+	QuizAction,
+	QuizActionEnum,
+	Status
+} from '../../action-types/quiz/quiz.types';
 
 const changeScore = (payload: number): QuizAction => ({
 	type: QuizActionEnum.CHANGE_SCORE,

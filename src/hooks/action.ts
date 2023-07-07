@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { quizActions } from 'store/reducers/quiz/quiz.actions';
+import { rootActions } from 'store/actions';
 
-const actions = { ...quizActions };
+const actions = { ...rootActions.quizActions };
 
 export const useActions = () => {
 	const dispatch = useDispatch();
