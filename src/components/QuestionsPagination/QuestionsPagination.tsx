@@ -6,6 +6,14 @@ import { FC } from 'react';
 import styles from './QuestionsPagination.module.scss';
 import { QuestionsPaginationProps } from './QuestionsPagination.props';
 
+/**
+ *
+ * @param isLastPage boolean если страница последняя то true
+ * @param isValid boolean валидность формы вопросов
+ * @param setIsValid boolean валидность формы
+ * @param questionsDivRef ref блока вопросов
+ * @returns
+ */
 const QuestionsPagination: FC<QuestionsPaginationProps> = ({
 	isLastPage,
 	isValid,
@@ -15,6 +23,7 @@ const QuestionsPagination: FC<QuestionsPaginationProps> = ({
 	const { questionsCount } = useAppSelector(state => state.quizReducer);
 	const { getQuestionsAction } = useActions();
 
+	// при изменение страницы запрашивает новые вопросы, проверяет страница последняя или нет и скроллит страницу вверх
 	const onChange = (page: number, pageSize: number) => {
 		getQuestionsAction({ page, pageSize });
 		setIsLastPage(questionsCount / pageSize == page);

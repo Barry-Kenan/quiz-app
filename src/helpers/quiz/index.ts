@@ -1,5 +1,6 @@
 import { MutableRefObject } from 'react';
 
+// скроллит вверх
 export const scrollToTop = (scrollRef: MutableRefObject<HTMLDivElement>) => {
 	scrollRef.current.scroll({
 		top: 0,
@@ -7,6 +8,7 @@ export const scrollToTop = (scrollRef: MutableRefObject<HTMLDivElement>) => {
 	});
 };
 
+// считает количество правильных ответов
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function countScore(answers: any, form: any) {
 	let correctAnswers = 0;

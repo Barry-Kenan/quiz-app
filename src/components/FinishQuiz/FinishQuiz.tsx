@@ -4,7 +4,10 @@ import { FC } from 'react';
 import styles from './FinishQuiz.module.scss';
 
 const { Title, Text } = Typography;
-
+/**
+ * Компонент результатов игры
+ * @returns Результаты
+ */
 const FinishQuiz: FC = () => {
 	const { count, questionsCount } = useAppSelector(state => state.quizReducer);
 

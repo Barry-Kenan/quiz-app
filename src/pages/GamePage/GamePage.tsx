@@ -2,6 +2,9 @@ import { FinishQuiz, QuestionsForm, QuestionsPagination } from 'components';
 import { useAppSelector } from 'hooks/redux';
 import { FC, useRef, useState } from 'react';
 
+/**
+ * Компонент игры
+ */
 const GamePage: FC = () => {
 	const [isLastPage, setIsLastPage] = useState<boolean>(false);
 	const [isValid, setIsValid] = useState<boolean>(false);

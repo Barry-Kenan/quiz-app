@@ -10,6 +10,13 @@ import { Controller, useForm } from 'react-hook-form';
 import styles from './QuestionsForm.module.scss';
 import { QuestionsFormProps } from './QuestionsForm.props';
 
+/**
+ * Компонент форма вопросов
+ * @param isLastPage boolean если страница последняя то true
+ * @param questionsDivRef ref блока вопросов
+ * @param setIsValid boolean валидность формы
+ * @returns форму вопросов
+ */
 const QuestionsForm: FC<QuestionsFormProps> = ({
 	isLastPage,
 	questionsDivRef,
@@ -19,16 +26,18 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	const { questions, answers, status } = useAppSelector(
 		state => state.quizReducer
 	);
-
-	const handleClick = () => {
-		changeStatus('start');
-	};
 	const {
 		control,
 		handleSubmit,
 		formState: { isValid, isDirty }
 	} = useForm<IAnswers>();
 
+	// меняет статус на 'start' чтобы начать игру заново
+	const handleClick = () => {
+		changeStatus('start');
+	};
+
+	// при отправке формы считает количество правильных ответов, меняет статус и скроллит вверх
 	const onSubmit = (formData: IAnswers) => {
 		loading(true);
 		const score = countScore(answers, formData);
@@ -38,6 +47,7 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 		loading(false);
 	};
 
+	// присваивает значение isValid нужен для родительского компонента
 	useEffect(() => {
 		setIsValid(isValid);
 	}, [isValid, setIsValid]);

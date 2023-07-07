@@ -5,8 +5,13 @@ import styles from './StartPage.module.scss';
 
 const { Title } = Typography;
 
+/**
+ * Компонент начальной страницы
+ */
 const StartPage: FC = () => {
 	const { changeStatus, getQuestionsAction } = useActions();
+
+	// при клике меняет статус
 	const handleClick = () => {
 		changeStatus('play');
 	};
