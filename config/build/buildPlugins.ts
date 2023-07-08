@@ -1,3 +1,4 @@
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -23,6 +24,14 @@ export function buildPlugins({
 		}),
 		new StylelintPlugin({
 			extensions: ['scss', 'css']
+		}),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: paths.icon,
+					to: paths.build
+				}
+			]
 		})
 	];
 }

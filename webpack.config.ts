@@ -9,6 +9,7 @@ export default (env: BuildEnv) => {
 		build: path.resolve(__dirname, 'build'),
 		html: path.resolve(__dirname, 'public', 'index.html'),
 		src: path.resolve(__dirname, 'src'),
+		icon: path.resolve(__dirname, 'src/assets', 'favicon.ico')
 	};
 
 	const mode = env.mode || 'development';
@@ -20,7 +21,7 @@ export default (env: BuildEnv) => {
 		mode,
 		paths,
 		isDev,
-		port: PORT,
+		port: PORT
 	});
 
 	return config;
