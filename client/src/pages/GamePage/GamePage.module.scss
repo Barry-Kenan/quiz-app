@@ -1,0 +1,14 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	height: 100%;
+
+	.questionsBlock {
+		height: 90%;
+
+		&.finish {
+			height: 75%;
+		}
+	}
+}

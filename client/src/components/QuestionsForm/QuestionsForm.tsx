@@ -54,12 +54,7 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-			<div
-				className={cn(styles.questions, {
-					[styles.finish]: status == 'finish'
-				})}
-				ref={questionsDivRef}
-			>
+			<div className={cn(styles.questions)} ref={questionsDivRef}>
 				{questions.map(e => (
 					<Controller
 						key={e.id}
@@ -82,29 +77,31 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 					/>
 				))}
 			</div>
-			{status != 'finish' ? (
-				<div className={styles.button}>
-					{isLastPage && (
+			<div>
+				{status != 'finish' ? (
+					<div className={styles.button}>
+						{isLastPage && (
+							<Button
+								type='primary'
+								htmlType='submit'
+								disabled={!isValid || !isDirty}
+							>
+								Завершить игру
+							</Button>
+						)}
+					</div>
+				) : (
+					<div className={styles.button}>
 						<Button
 							type='primary'
-							htmlType='submit'
-							disabled={!isValid || !isDirty}
+							className={styles.button}
+							onClick={handleClick}
 						>
-							Завершить игру
+							Начать заново
 						</Button>
-					)}
-				</div>
-			) : (
-				<div className={styles.button}>
-					<Button
-						type='primary'
-						className={styles.button}
-						onClick={handleClick}
-					>
-						Начать заново
-					</Button>
-				</div>
-			)}
+					</div>
+				)}
+			</div>
 		</form>
 	);
 };
