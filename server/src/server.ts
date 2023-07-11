@@ -15,8 +15,8 @@ app.use(
 		credentials: true,
 	})
 );
-app.use(quizRoutes);
-app.use(authRouter);
+app.use('/api', quizRoutes);
+app.use('/api/auth', authRouter);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
