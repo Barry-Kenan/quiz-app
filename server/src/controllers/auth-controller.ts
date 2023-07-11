@@ -61,7 +61,7 @@ export const login = async (req: Request, res: Response) => {
 			id: user.id,
 		},
 		'refresh_secret',
-		{ expiresIn: '1w' }
+		{ expiresIn: '7d' }
 	);
 
 	res.cookie('accessToken', accessToken, {
