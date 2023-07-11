@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import { sign, verify } from 'jsonwebtoken';
-import Users from '../DBs/users.json';
+import Data from '../DBs/users.json';
 
 const handleError = (res: Response, status: number, error: string) => {
 	res.status(status).send({ message: error });
@@ -17,7 +17,7 @@ export const register = async (req: Request, res: Response) => {
 		handleError(res, 500, 'email and password are required');
 	}
 
-	const user = Users.users.find(users => users.email == email);
+	const user = Data.users.find(users => users.email == email);
 
 	if (user) {
 		handleError(res, 500, 'email exists in register');
@@ -29,7 +29,7 @@ export const register = async (req: Request, res: Response) => {
 			password: await bcrypt.hash(password, 10),
 		};
 
-		Users.users.push(_user);
+		Data.users.push(_user);
 
 		handleSuccess(res);
 	}
@@ -38,7 +38,7 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
 	const { email, password } = req.body;
 
-	const user = Users.users.find(users => users.email == email);
+	const user = Data.users.find(users => users.email == email);
 
 	if (!user) {
 		return handleError(res, 400, 'Invalid credentials');
