@@ -66,38 +66,18 @@ export const login = async (req: Request, res: Response) => {
 
 	res.cookie('accessToken', accessToken, {
 		httpOnly: true,
+		secure: true,
 		maxAge: 24 * 60 * 1000, // 1 day
 	});
 
 	res.cookie('refreshToken', refreshToken, {
 		httpOnly: true,
+		secure: true,
 		maxAge: 7 * 24 * 60 * 1000, // 7 days
 	});
 
-	handleSuccess(res);
-};
-
-export const authenticatedUser = async (req: Request, res: Response) => {
-	try {
-		const accessToken = req.cookies['accessToken'];
-
-		const payload: any = verify(accessToken, 'access_secret');
-
-		if (!payload) {
-			return handleError(res, 401, 'Unauthenticated');
-		}
-
-		const user = Users.users.find(users => users.id == payload.id);
-
-		if (!user) {
-			return handleError(res, 401, 'Unauthenticated');
-		}
-
-		const { password, ...data } = user;
-		res.send(data);
-	} catch (e) {
-		return handleError(res, 401, 'Unauthenticated');
-	}
+	const { password: pass, ...data } = user;
+	res.send(data);
 };
 
 export const refresh = (req: Request, res: Response) => {
@@ -120,6 +100,7 @@ export const refresh = (req: Request, res: Response) => {
 
 		res.cookie('accessToken', accessToken, {
 			httpOnly: true,
+			secure: true,
 			maxAge: 24 * 60 * 1000, // 1 day
 		});
 
