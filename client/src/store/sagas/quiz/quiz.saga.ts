@@ -1,5 +1,6 @@
 import { quizApi } from 'helpers/api/api';
 import { IAnswers } from 'interfaces/answers.interface';
+import { QuestionsData } from 'interfaces/question.interface';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 import {
 	GetQuestions,
@@ -11,13 +12,13 @@ const { quizActions } = rootActions;
 
 export function* getQuestionsSaga({ payload }: GetQuestions) {
 	yield put(quizActions.loading(true));
-	const { data, headers } = yield quizApi.getQuestions(
+	const data: QuestionsData = yield quizApi.getQuestions(
 		payload.page,
 		payload.pageSize
 	);
 	const answers: IAnswers = yield quizApi.getAnswers();
-	yield put(quizActions.changeQuestionsCount(headers['x-total-count']));
-	yield put(quizActions.setQuestions(data));
+	yield put(quizActions.changeQuestionsCount(data.totalCount));
+	yield put(quizActions.setQuestions(data.questions));
 	yield put(quizActions.setAnswers(answers));
 	yield put(quizActions.loading(false));
 }
