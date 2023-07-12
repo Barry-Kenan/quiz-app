@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { IUser } from 'interfaces/user.interface';
 
 export const instanceApi = axios.create({
-	baseURL: 'http://localhost:3001/api/'
+	baseURL: 'http://localhost:3001/api/',
+	withCredentials: true
 });
 
 export const quizApi = {
@@ -18,5 +20,11 @@ export const quizApi = {
 
 	getAnswers() {
 		return instanceApi.get('answers').then(res => res.data);
+	}
+};
+
+export const authApi = {
+	login(data: Omit<IUser, 'id' | 'name'>) {
+		return instanceApi.post('auth/login', data);
 	}
 };

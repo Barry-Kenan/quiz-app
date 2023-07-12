@@ -9,6 +9,12 @@ const setUser = (payload: Omit<IUser, 'password'>): AuthAction => ({
 	payload
 });
 
+const login = (payload: Omit<IUser, 'id' | 'name'>): AuthAction => ({
+	type: AuthActionEnum.LOGIN,
+	payload
+});
+
 export const authActions = {
-	setUser
+	setUser,
+	login
 };

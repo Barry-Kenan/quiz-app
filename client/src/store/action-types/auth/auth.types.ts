@@ -1,7 +1,8 @@
 import { IUser } from 'interfaces/user.interface';
 
 export enum AuthActionEnum {
-	SET_USER = 'SET_USER'
+	SET_USER = 'SET_USER',
+	LOGIN = 'LOGIN'
 }
 
 export interface SetUserAction {
@@ -9,4 +10,9 @@ export interface SetUserAction {
 	payload: Omit<IUser, 'password'>;
 }
 
-export type AuthAction = SetUserAction;
+export interface Login {
+	type: AuthActionEnum.LOGIN;
+	payload: Omit<IUser, 'id' | 'name'>;
+}
+
+export type AuthAction = SetUserAction | Login;
