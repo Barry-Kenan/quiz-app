@@ -26,5 +26,9 @@ export const quizApi = {
 export const authApi = {
 	login(data: Omit<IUser, 'id' | 'name'>) {
 		return instanceApi.post('auth/login', data);
+	},
+
+	register(data: Omit<IUser, 'id'>) {
+		return instanceApi.post('auth/register', data).then(res => res.status);
 	}
 };
