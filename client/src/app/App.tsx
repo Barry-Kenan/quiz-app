@@ -1,17 +1,20 @@
 import 'antd/dist/reset.css';
-import { useAppSelector } from 'hooks/redux';
 import { withLayout } from 'layout/Layout';
-import { GamePage, StartPage } from 'pages';
+import { HomePage, LoginPage, RegisterPage } from 'pages';
 import { FC } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 const App: FC = () => {
-	const { status } = useAppSelector(state => state.quizReducer);
-
-	if (status == 'start') {
-		return <StartPage />;
-	} else {
-		return <GamePage />;
-	}
+	return (
+		<>
+			<Routes>
+				<Route path='/' element={<HomePage />} />
+				<Route path='/login' element={<LoginPage />} />
+				<Route path='/register' element={<RegisterPage />} />
+				<Route path='*' element={<p>There's nothing here: 404!</p>} />
+			</Routes>
+		</>
+	);
 };
 
 export default withLayout(App);
