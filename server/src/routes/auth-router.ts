@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+	authenticatedUser,
 	login,
 	logout,
 	refresh,
@@ -12,5 +13,6 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/refresh', refresh);
 router.post('/logout', logout);
+router.get('/user', authenticatedUser);
 
 export default router;

@@ -80,6 +80,29 @@ export const login = async (req: Request, res: Response) => {
 	res.send(data);
 };
 
+export const authenticatedUser = async (req: Request, res: Response) => {
+	try {
+		const accessToken = req.cookies['accessToken'];
+
+		const payload: any = verify(accessToken, 'access_secret');
+
+		if (!payload) {
+			return handleError(res, 401, 'Unauthenticated');
+		}
+
+		const user = Data.users.find(users => users.id == payload.id);
+
+		if (!user) {
+			return handleError(res, 401, 'Unauthenticated');
+		}
+
+		const { password, ...data } = user;
+		res.send(data);
+	} catch (e) {
+		return handleError(res, 401, 'Unauthenticated');
+	}
+};
+
 export const refresh = (req: Request, res: Response) => {
 	try {
 		const refreshToken = req.cookies['refreshToken'];
