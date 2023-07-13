@@ -11,7 +11,7 @@ const { Title } = Typography;
 const AuthComponent: FC<AuthComponentProps> = ({ component }) => {
 	const [api, contextHolder] = notification.useNotification();
 	const { error } = useAppSelector(state => state.authReducer);
-	const { setError } = useActions();
+	const { setError, auth } = useActions();
 
 	const openNotification = () => {
 		api.error({
@@ -26,6 +26,10 @@ const AuthComponent: FC<AuthComponentProps> = ({ component }) => {
 			setError(null);
 		}
 	}, [error]);
+
+	useEffect(() => {
+		auth();
+	}, []);
 
 	return (
 		<div className={styles.wrapper}>
