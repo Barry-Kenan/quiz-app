@@ -5,7 +5,7 @@ import { countScore, scrollToTop } from 'helpers/quiz';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
 import { IAnswers } from 'interfaces/answers.interface';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styles from './QuestionsForm.module.scss';
 import { QuestionsFormProps } from './QuestionsForm.props';
@@ -22,15 +22,36 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	questionsDivRef,
 	setIsValid
 }) => {
-	const { changeStatus, changeScore, loading } = useActions();
+	const { changeStatus, changeScore } = useActions();
 	const { questions, answers, status } = useAppSelector(
 		state => state.quizReducer
 	);
 	const {
 		control,
 		handleSubmit,
+		getValues,
 		formState: { isValid, isDirty }
 	} = useForm<IAnswers>();
+
+	const formRef = useRef<HTMLFormElement>();
+
+	const result = (data: IAnswers) => {
+		const score = countScore(answers, data);
+		changeScore(score);
+		changeStatus('finish');
+		scrollToTop(questionsDivRef);
+	};
+
+	useEffect(() => {
+		if (status == 'play') {
+			const timeOut = setTimeout(() => {
+				const data = getValues();
+				result(data);
+			}, 20000);
+
+			return () => clearTimeout(timeOut);
+		}
+	}, [status]);
 
 	// меняет статус на 'start' чтобы начать игру заново
 	const handleClick = () => {
@@ -39,12 +60,7 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 
 	// при отправке формы считает количество правильных ответов, меняет статус и скроллит вверх
 	const onSubmit = (formData: IAnswers) => {
-		loading(true);
-		const score = countScore(answers, formData);
-		changeScore(score);
-		changeStatus('finish');
-		scrollToTop(questionsDivRef);
-		loading(false);
+		result(formData);
 	};
 
 	// присваивает значение isValid нужен для родительского компонента
@@ -53,7 +69,12 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	}, [isValid, setIsValid]);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+		<form
+			key={1}
+			onSubmit={handleSubmit(onSubmit)}
+			className={styles.form}
+			ref={formRef}
+		>
 			<div className={cn(styles.questions)} ref={questionsDivRef}>
 				{questions.length &&
 					questions.map(e => (
