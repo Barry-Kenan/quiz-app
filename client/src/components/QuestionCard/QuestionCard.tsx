@@ -28,17 +28,18 @@ const QuestionCard: FC<QuestionCardProps> = ({
 	return (
 		<Card title={title} className={styles.card}>
 			<ul className={styles.choices}>
-				{choices.map(k => (
-					<Checkbox
-						key={k.id}
-						checked={checked == k.id}
-						name={k.id}
-						onChange={onChange}
-						disabled={status == 'finish'}
-					>
-						{k.content}
-					</Checkbox>
-				))}
+				{choices &&
+					choices.map(k => (
+						<Checkbox
+							key={k.id}
+							checked={checked == k.id}
+							name={k.id}
+							onChange={onChange}
+							disabled={status == 'finish'}
+						>
+							{k.content}
+						</Checkbox>
+					))}
 			</ul>
 		</Card>
 	);
