@@ -55,27 +55,28 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 			<div className={cn(styles.questions)} ref={questionsDivRef}>
-				{questions.map(e => (
-					<Controller
-						key={e.id}
-						control={control}
-						name={e.id}
-						rules={{
-							required: {
-								value: true,
-								message: 'Выберите ответ'
-							}
-						}}
-						render={({ field }) => (
-							<QuestionCard
-								title={e.prompt}
-								choices={e.choices}
-								checked={field.value}
-								setChecked={field.onChange}
-							/>
-						)}
-					/>
-				))}
+				{questions.length &&
+					questions.map(e => (
+						<Controller
+							key={e.id}
+							control={control}
+							name={e.id}
+							rules={{
+								required: {
+									value: true,
+									message: 'Выберите ответ'
+								}
+							}}
+							render={({ field }) => (
+								<QuestionCard
+									title={e.prompt}
+									choices={e.choices}
+									checked={field.value}
+									setChecked={field.onChange}
+								/>
+							)}
+						/>
+					))}
 			</div>
 			<div>
 				{status != 'finish' ? (
