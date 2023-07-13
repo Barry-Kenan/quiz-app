@@ -14,13 +14,17 @@ export const register = async (req: Request, res: Response) => {
 	const { name, email, password } = req.body;
 
 	if (!email || !password) {
-		handleError(res, 500, 'email and password are required');
+		handleError(res, 500, 'Почта и паспорт обязательны');
 	}
 
 	const user = Data.users.find(users => users.email == email);
 
 	if (user) {
-		handleError(res, 500, 'email exists in register');
+		handleError(
+			res,
+			500,
+			'Аккаунт, использующий указанный Вами адрес электронной почты, уже существует'
+		);
 	} else {
 		const _user = {
 			id: new Date().valueOf(),
@@ -30,7 +34,6 @@ export const register = async (req: Request, res: Response) => {
 		};
 
 		Data.users.push(_user);
-
 		handleSuccess(res);
 	}
 };
@@ -41,11 +44,11 @@ export const login = async (req: Request, res: Response) => {
 	const user = Data.users.find(users => users.email == email);
 
 	if (!user) {
-		return handleError(res, 400, 'Invalid credentials');
+		return handleError(res, 400, 'Недействительные учетные данные');
 	}
 
 	if (!(await bcrypt.compare(password, user.password))) {
-		return handleError(res, 400, 'Invalid credentials');
+		return handleError(res, 400, 'Недействительные учетные данные');
 	}
 
 	const accessToken = sign(
@@ -87,19 +90,19 @@ export const authenticatedUser = async (req: Request, res: Response) => {
 		const payload: any = verify(accessToken, 'access_secret');
 
 		if (!payload) {
-			return handleError(res, 401, 'Unauthenticated');
+			return handleError(res, 401, 'Вы не авторизованы');
 		}
 
 		const user = Data.users.find(users => users.id == payload.id);
 
 		if (!user) {
-			return handleError(res, 401, 'Unauthenticated');
+			return handleError(res, 401, 'Вы не авторизованы');
 		}
 
 		const { password, ...data } = user;
 		res.send(data);
 	} catch (e) {
-		return handleError(res, 401, 'Unauthenticated');
+		return handleError(res, 401, 'Вы не авторизованы');
 	}
 };
 
@@ -110,7 +113,7 @@ export const refresh = (req: Request, res: Response) => {
 		const payload: any = verify(refreshToken, 'refresh_secret');
 
 		if (!payload) {
-			return handleError(res, 401, 'Unauthenticated');
+			return handleError(res, 401, 'Вы не авторизованы');
 		}
 
 		const accessToken = sign(
@@ -129,7 +132,7 @@ export const refresh = (req: Request, res: Response) => {
 
 		handleSuccess(res);
 	} catch (e) {
-		return handleError(res, 401, 'Unauthenticated');
+		return handleError(res, 401, 'Вы не авторизованы');
 	}
 };
 
