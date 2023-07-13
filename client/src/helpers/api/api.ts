@@ -30,5 +30,9 @@ export const authApi = {
 
 	register(data: Omit<IUser, 'id'>) {
 		return instanceApi.post('auth/register', data).then(res => res.status);
+	},
+
+	logout() {
+		return instanceApi.post('auth/logout').then(res => res.status);
 	}
 };
