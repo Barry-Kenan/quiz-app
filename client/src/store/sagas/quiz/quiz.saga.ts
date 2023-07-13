@@ -1,4 +1,4 @@
-import { quizApi } from 'helpers/api/api';
+import { authApi, quizApi } from 'helpers/api/api';
 import { IAnswers } from 'interfaces/answers.interface';
 import { QuestionsData } from 'interfaces/question.interface';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
@@ -10,17 +10,31 @@ import { rootActions } from 'store/actions';
 
 const { quizActions } = rootActions;
 
+function* getData(payload: { page: number; pageSize: number }) {
+	try {
+		yield put(quizActions.loading(true));
+		const data: QuestionsData = yield quizApi.getQuestions(
+			payload.page,
+			payload.pageSize
+		);
+		const answers: IAnswers = yield quizApi.getAnswers();
+		yield put(quizActions.changeQuestionsCount(data.totalCount));
+		yield put(quizActions.setQuestions(data.questions));
+		yield put(quizActions.setAnswers(answers));
+		yield put(quizActions.loading(false));
+	} catch (error) {
+		error.response.data.message;
+	}
+}
+
 export function* getQuestionsSaga({ payload }: GetQuestions) {
-	yield put(quizActions.loading(true));
-	const data: QuestionsData = yield quizApi.getQuestions(
-		payload.page,
-		payload.pageSize
-	);
-	const answers: IAnswers = yield quizApi.getAnswers();
-	yield put(quizActions.changeQuestionsCount(data.totalCount));
-	yield put(quizActions.setQuestions(data.questions));
-	yield put(quizActions.setAnswers(answers));
-	yield put(quizActions.loading(false));
+	try {
+		yield authApi.user();
+		yield getData(payload);
+	} catch (error) {
+		yield authApi.refresh();
+		yield getData(payload);
+	}
 }
 
 function* watchGetQuestions() {
