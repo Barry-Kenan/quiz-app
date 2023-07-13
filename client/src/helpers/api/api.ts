@@ -34,5 +34,13 @@ export const authApi = {
 
 	logout() {
 		return instanceApi.post('auth/logout').then(res => res.status);
+	},
+
+	refresh() {
+		return instanceApi.post('auth/refresh');
+	},
+
+	user() {
+		return instanceApi.get('auth/user').then(res => res.data);
 	}
 };
