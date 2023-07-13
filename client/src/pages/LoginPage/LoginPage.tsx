@@ -1,18 +1,8 @@
-import { Typography } from 'antd';
-import { LoginForm } from 'components';
+import { AuthComponent } from 'components';
 import { FC } from 'react';
-import styles from './LoginPage.module.scss';
 
-const { Title } = Typography;
 const LoginPage: FC = () => {
-	return (
-		<div className={styles.wrapper}>
-			<Title level={2} underline type='secondary'>
-				Логин
-			</Title>
-			<LoginForm />
-		</div>
-	);
+	return <AuthComponent component='login' />;
 };
 
 export default LoginPage;

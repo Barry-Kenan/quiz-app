@@ -1,7 +1,8 @@
+import { AuthComponent } from 'components';
 import { FC } from 'react';
 
 const RegisterPage: FC = () => {
-	return <div>RegisterPage</div>;
+	return <AuthComponent component='register' />;
 };
 
 export default RegisterPage;
