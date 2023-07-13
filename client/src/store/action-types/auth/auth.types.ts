@@ -6,7 +6,8 @@ export enum AuthActionEnum {
 	LOGIN = 'LOGIN',
 	REGISTER = 'REGISTER',
 	LOGOUT = 'LOGOUT',
-	SET_ERROR = 'SET_ERROR'
+	SET_ERROR = 'SET_ERROR',
+	AUTH = 'AUTH'
 }
 
 export interface SetUserAction {
@@ -37,10 +38,15 @@ export interface SetError {
 	payload: string;
 }
 
+export interface Auth {
+	type: AuthActionEnum.AUTH;
+}
+
 export type AuthAction =
 	| SetUserAction
 	| Login
 	| Register
 	| Logout
 	| LogoutUser
-	| SetError;
+	| SetError
+	| Auth;

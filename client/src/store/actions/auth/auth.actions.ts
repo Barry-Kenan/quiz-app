@@ -29,11 +29,16 @@ const setError = (payload: string): AuthAction => ({
 	payload
 });
 
+const auth = (): AuthAction => ({
+	type: AuthActionEnum.AUTH
+});
+
 export const authActions = {
 	setUser,
 	login,
 	register,
 	logout,
 	logoutUser,
-	setError
+	setError,
+	auth
 };

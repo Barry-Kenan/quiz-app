@@ -39,6 +39,16 @@ export function* logoutSaga() {
 	}
 }
 
+export function* authenticationSaga() {
+	try {
+		yield authApi.refresh();
+		const data: Omit<IUser, 'password'> = yield authApi.user();
+		yield put(authActions.setUser(data));
+	} catch (error) {
+		yield put(authActions.setError(error.response.data.message));
+	}
+}
+
 function* watchLogin() {
 	yield takeEvery(AuthActionEnum.LOGIN, loginSaga);
 }
@@ -49,7 +59,15 @@ function* watchRegister() {
 function* watchLogout() {
 	yield takeEvery(AuthActionEnum.LOGOUT, logoutSaga);
 }
+function* watchAuth() {
+	yield takeEvery(AuthActionEnum.AUTH, authenticationSaga);
+}
 
 export default function* authSaga() {
-	yield all([fork(watchLogin), fork(watchRegister), fork(watchLogout)]);
+	yield all([
+		fork(watchLogin),
+		fork(watchRegister),
+		fork(watchLogout),
+		fork(watchAuth)
+	]);
 }
