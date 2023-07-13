@@ -5,13 +5,15 @@ interface AuthState {
 	name: string;
 	id: number;
 	email: string;
+	error: string;
 }
 
 const initialState: AuthState = {
 	isAuth: false,
 	name: null,
 	id: null,
-	email: null
+	email: null,
+	error: null
 };
 
 const authReducer = (state = initialState, action: AuthAction): AuthState => {
@@ -20,6 +22,10 @@ const authReducer = (state = initialState, action: AuthAction): AuthState => {
 			// eslint-disable-next-line no-case-declarations
 			const { email, id, name } = action.payload;
 			return { ...state, isAuth: true, email, id, name };
+		case AuthActionEnum.LOGOUT_USER:
+			return { ...state, isAuth: false, name: null, id: null, email: null };
+		case AuthActionEnum.SET_ERROR:
+			return { ...state, error: action.payload };
 		default:
 			return state;
 	}

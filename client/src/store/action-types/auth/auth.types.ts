@@ -2,7 +2,11 @@ import { IUser } from 'interfaces/user.interface';
 
 export enum AuthActionEnum {
 	SET_USER = 'SET_USER',
-	LOGIN = 'LOGIN'
+	LOGOUT_USER = 'LOGOUT_USER',
+	LOGIN = 'LOGIN',
+	REGISTER = 'REGISTER',
+	LOGOUT = 'LOGOUT',
+	SET_ERROR = 'SET_ERROR'
 }
 
 export interface SetUserAction {
@@ -15,4 +19,28 @@ export interface Login {
 	payload: Omit<IUser, 'id' | 'name'>;
 }
 
-export type AuthAction = SetUserAction | Login;
+export interface Register {
+	type: AuthActionEnum.REGISTER;
+	payload: Omit<IUser, 'id'>;
+}
+
+export interface Logout {
+	type: AuthActionEnum.LOGOUT;
+}
+
+export interface LogoutUser {
+	type: AuthActionEnum.LOGOUT_USER;
+}
+
+export interface SetError {
+	type: AuthActionEnum.SET_ERROR;
+	payload: string;
+}
+
+export type AuthAction =
+	| SetUserAction
+	| Login
+	| Register
+	| Logout
+	| LogoutUser
+	| SetError;
