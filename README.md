@@ -30,7 +30,7 @@ _Линтеры:_ Stylelint, Eslint, Prettier
   npm install
 ```
 
-Запускаем проекта локально, сначала server, потом client
+Запускаем проект локально, сначала server, потом client
 
 ```bash
   npm start
