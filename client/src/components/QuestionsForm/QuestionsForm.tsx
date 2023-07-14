@@ -26,10 +26,11 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	const { questions, answers, status } = useAppSelector(
 		state => state.quizReducer
 	);
+	const time = 70000;
 	const [startAt, setStartAt] = useState<number>();
 	const now = useNow(1000, startAt);
 	const fromStart = now - (startAt ?? now);
-	const countDown = Math.max(0, 20000 - fromStart);
+	const countDown = Math.max(0, time - fromStart);
 	const isCounted = countDown == 0;
 
 	const {
@@ -128,7 +129,10 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 					)}
 				</div>
 			</form>
-			<Timer time={Math.ceil(countDown / 1000)} />
+			<Timer
+				time={Math.ceil(time / 1000)}
+				countDown={Math.ceil(countDown / 1000)}
+			/>
 		</>
 	);
 };
