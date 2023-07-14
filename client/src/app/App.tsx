@@ -2,7 +2,7 @@ import 'antd/dist/reset.css';
 import AuthRoutes from 'helpers/guards/AuthRoutes';
 import PrivateRoutes from 'helpers/guards/PrivateRoutes';
 import { withLayout } from 'layout/Layout';
-import { HomePage, LoginPage, RegisterPage } from 'pages';
+import { AuthPage, HomePage } from 'pages';
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -14,10 +14,9 @@ const App: FC = () => {
 					<Route path='/' element={<HomePage />} />
 				</Route>
 				<Route element={<AuthRoutes />}>
-					<Route path='/login' element={<LoginPage />} />
-					<Route path='/register' element={<RegisterPage />} />
+					<Route path='/auth' element={<AuthPage />} />
 				</Route>
-				<Route path='*' element={<p>There's nothing here: 404!</p>} />
+				<Route path='*' element={<p>Страница не найдена: 404!</p>} />
 			</Routes>
 		</>
 	);
