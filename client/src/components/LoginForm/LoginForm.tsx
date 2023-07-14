@@ -31,11 +31,9 @@ const LoginForm: FC = () => {
 						message: 'Введите email'
 					},
 					validate: {
-						maxLength: v =>
-							v.length <= 50 || 'The email should have at most 50 characters',
 						matchPattern: v =>
 							/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-							'Email address must be a valid address'
+							'Введите правильный email'
 					}
 				}}
 				render={({ field }) => (

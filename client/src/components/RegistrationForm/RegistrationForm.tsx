@@ -29,6 +29,10 @@ const RegistrationForm: FC = () => {
 					required: {
 						value: true,
 						message: 'Введите имя'
+					},
+					validate: {
+						maxLength: v =>
+							v.length <= 10 || 'Имя должно содержать меньше 10 символов'
 					}
 				}}
 				render={({ field }) => (
@@ -55,11 +59,9 @@ const RegistrationForm: FC = () => {
 						message: 'Введите email'
 					},
 					validate: {
-						maxLength: v =>
-							v.length <= 50 || 'The email should have at most 50 characters',
 						matchPattern: v =>
 							/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-							'Email address must be a valid address'
+							'Введите правильный email'
 					}
 				}}
 				render={({ field }) => (
