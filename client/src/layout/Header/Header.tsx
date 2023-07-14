@@ -1,3 +1,4 @@
+import { LogoutOutlined } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
 import cn from 'classnames';
 import { useActions } from 'hooks/action';
@@ -18,8 +19,8 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 					<Title level={4} mark className={styles.title}>
 						{name}
 					</Title>
-					<Button type='primary' onClick={logout}>
-						Выход
+					<Button type='primary' onClick={logout} className={styles.button}>
+						Выход <LogoutOutlined />
 					</Button>
 				</div>
 			)}

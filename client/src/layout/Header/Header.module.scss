@@ -13,11 +13,16 @@
 
 	.block {
 		display: flex;
-		flex-direction: row;
 		gap: 20px;
 
 		.title {
 			text-transform: uppercase;
+		}
+
+		.button {
+			svg {
+				width: 14px;
+			}
 		}
 	}
 }
