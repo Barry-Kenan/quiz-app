@@ -5,6 +5,9 @@ import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styles from './RegistrationForm.module.scss';
 
+/**
+ * Форма для регистрации
+ */
 const RegistrationForm: FC = () => {
 	const { register } = useActions();
 	const {

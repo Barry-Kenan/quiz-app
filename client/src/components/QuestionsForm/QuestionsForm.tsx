@@ -26,6 +26,7 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	const { questions, answers, status } = useAppSelector(
 		state => state.quizReducer
 	);
+	// таймер
 	const time = 70000;
 	const [startAt, setStartAt] = useState<number>();
 	const now = useNow(1000, startAt);
@@ -42,6 +43,7 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 
 	const formRef = useRef<HTMLFormElement>();
 
+	// подсчет ответов и изменение статуса
 	const result = (data: IAnswers) => {
 		const score = countScore(answers, data);
 		changeScore(score);
@@ -61,12 +63,12 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 		}
 	}, [status, isCounted]);
 
-	// меняет статус на 'start' чтобы начать игру заново
+	// вызывается при submit
 	const handleClick = () => {
 		changeStatus('start');
 	};
 
-	// при отправке формы считает количество правильных ответов, меняет статус и скроллит вверх
+	// при отправке формы считает количество правильных ответов, меняет статус и скроллится вверх
 	const onSubmit = (formData: IAnswers) => {
 		result(formData);
 	};

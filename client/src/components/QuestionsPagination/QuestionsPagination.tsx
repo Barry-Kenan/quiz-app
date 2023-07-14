@@ -18,7 +18,7 @@ const QuestionsPagination: FC<QuestionsPaginationProps> = ({
 	const { questionsCount } = useAppSelector(state => state.quizReducer);
 	const { getQuestionsAction } = useActions();
 
-	// при изменение страницы запрашивает новые вопросы, проверяет страница последняя или нет и скроллит страницу вверх
+	// при изменение страницы запрашивает новые вопросы, проверяет страница последняя или нет и скроллится  вверх
 	const onChange = (page: number, pageSize: number) => {
 		getQuestionsAction({ page, pageSize });
 		setIsLastPage(questionsCount / pageSize == page);

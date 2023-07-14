@@ -21,6 +21,7 @@ export function countScore(answers: IAnswers, form: IAnswers) {
 	return correctAnswers;
 }
 
+// секунды возвращает в форматы часы минуты секунды
 export function secondsToHms(d: number) {
 	d = Number(d);
 	const h = Math.floor(d / 3600);

@@ -7,11 +7,18 @@ import styles from './AuthComponent.module.scss';
 import { AuthComponentProps } from './AuthComponent.props';
 
 const { Title } = Typography;
+
+/**
+ * Общий компонент для логина и регистрации
+ * @param component: "login" | "register"
+ * @returns
+ */
 const AuthComponent: FC<AuthComponentProps> = ({ component }) => {
 	const [api, contextHolder] = notification.useNotification();
 	const { error } = useAppSelector(state => state.authReducer);
 	const { setError } = useActions();
 
+	// вывод ошибок
 	const openNotification = () => {
 		api.error({
 			message: 'Ошибка',

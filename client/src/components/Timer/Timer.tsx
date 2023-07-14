@@ -4,6 +4,11 @@ import { FC } from 'react';
 import styles from './Timer.module.scss';
 import { TimerProps } from './Timer.props';
 
+/**
+ * Компонент таймер
+ * @param time начальная время таймера
+ * @param countDown таймер
+ */
 const Timer: FC<TimerProps> = ({ time, countDown }) => {
 	if (countDown == 0) {
 		return <></>;

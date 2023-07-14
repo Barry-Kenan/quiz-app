@@ -1,4 +1,11 @@
 import { useLayoutEffect, useState } from 'react';
+
+/**
+ * хук для работы с таймером
+ * @param updateInterval интервал в миллисекундах
+ * @param enabled включение
+ * @returns now: number в миллисекундах
+ */
 export function useNow(updateInterval: number, enabled: number) {
 	const [now, setNow] = useState(Date.now());
 

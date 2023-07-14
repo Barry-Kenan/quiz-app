@@ -6,6 +6,9 @@ import RegisterPage from 'pages/RegisterPage/RegisterPage';
 import { FC, useEffect, useState } from 'react';
 import styles from './AuthPage.module.scss';
 
+/**
+ * Компонент авторизации
+ */
 const AuthPage: FC = () => {
 	const { auth } = useActions();
 	const [modal, setModal] = useState<null | 'login' | 'register'>(null);

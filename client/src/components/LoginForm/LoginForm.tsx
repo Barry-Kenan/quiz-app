@@ -5,6 +5,9 @@ import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styles from './LoginForm.module.scss';
 
+/**
+ * Форма для логина
+ */
 const LoginForm: FC = () => {
 	const { login } = useActions();
 	const {
