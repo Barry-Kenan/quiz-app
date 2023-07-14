@@ -1,11 +1,13 @@
 import { Button } from 'antd';
 import cn from 'classnames';
 import QuestionCard from 'components/QuestionCard/QuestionCard';
+import Timer from 'components/Timer/Timer';
 import { countScore, scrollToTop } from 'helpers/quiz';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
+import { useNow } from 'hooks/useNow';
 import { IAnswers } from 'interfaces/answers.interface';
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styles from './QuestionsForm.module.scss';
 import { QuestionsFormProps } from './QuestionsForm.props';
@@ -14,18 +16,22 @@ import { QuestionsFormProps } from './QuestionsForm.props';
  * Компонент форма вопросов
  * @param isLastPage boolean если страница последняя то true
  * @param questionsDivRef ref блока вопросов
- * @param setIsValid boolean валидность формы
  * @returns форму вопросов
  */
 const QuestionsForm: FC<QuestionsFormProps> = ({
 	isLastPage,
-	questionsDivRef,
-	setIsValid
+	questionsDivRef
 }) => {
 	const { changeStatus, changeScore } = useActions();
 	const { questions, answers, status } = useAppSelector(
 		state => state.quizReducer
 	);
+	const [startAt, setStartAt] = useState<number>();
+	const now = useNow(1000, startAt);
+	const fromStart = now - (startAt ?? now);
+	const countDown = Math.max(0, 20000 - fromStart);
+	const isCounted = countDown == 0;
+
 	const {
 		control,
 		handleSubmit,
@@ -44,14 +50,15 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 
 	useEffect(() => {
 		if (status == 'play') {
-			const timeOut = setTimeout(() => {
+			setStartAt(Date.now);
+			if (isCounted) {
 				const data = getValues();
 				result(data);
-			}, 20000);
-
-			return () => clearTimeout(timeOut);
+			}
+		} else {
+			setStartAt(0);
 		}
-	}, [status]);
+	}, [status, isCounted]);
 
 	// меняет статус на 'start' чтобы начать игру заново
 	const handleClick = () => {
@@ -63,68 +70,66 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 		result(formData);
 	};
 
-	// присваивает значение isValid нужен для родительского компонента
-	useEffect(() => {
-		setIsValid(isValid);
-	}, [isValid, setIsValid]);
-
 	return (
-		<form
-			key={1}
-			onSubmit={handleSubmit(onSubmit)}
-			className={styles.form}
-			ref={formRef}
-		>
-			<div className={cn(styles.questions)} ref={questionsDivRef}>
-				{questions.length &&
-					questions.map(e => (
-						<Controller
-							key={e.id}
-							control={control}
-							name={e.id}
-							rules={{
-								required: {
-									value: true,
-									message: 'Выберите ответ'
-								}
-							}}
-							render={({ field }) => (
-								<QuestionCard
-									title={e.prompt}
-									choices={e.choices}
-									checked={field.value}
-									setChecked={field.onChange}
-								/>
+		<>
+			<form
+				key={1}
+				onSubmit={handleSubmit(onSubmit)}
+				className={styles.form}
+				ref={formRef}
+			>
+				<div className={cn(styles.questions)} ref={questionsDivRef}>
+					{questions.length &&
+						questions.map(e => (
+							<Controller
+								key={e.id}
+								control={control}
+								name={e.id}
+								rules={{
+									required: {
+										value: true,
+										message: 'Выберите ответ'
+									}
+								}}
+								render={({ field }) => (
+									<QuestionCard
+										title={e.prompt}
+										choices={e.choices}
+										checked={field.value}
+										setChecked={field.onChange}
+									/>
+								)}
+							/>
+						))}
+				</div>
+				<div>
+					{status != 'finish' ? (
+						<div className={styles.button}>
+							{isLastPage && (
+								<Button
+									type='primary'
+									htmlType='submit'
+									disabled={!isValid || !isDirty}
+								>
+									Завершить игру
+								</Button>
 							)}
-						/>
-					))}
-			</div>
-			<div>
-				{status != 'finish' ? (
-					<div className={styles.button}>
-						{isLastPage && (
+						</div>
+					) : (
+						<div className={styles.button}>
 							<Button
 								type='primary'
-								htmlType='submit'
-								disabled={!isValid || !isDirty}
+								className={styles.button}
+								onClick={handleClick}
 							>
-								Завершить игру
+								Начать заново
 							</Button>
-						)}
-					</div>
-				) : (
-					<div className={styles.button}>
-						<Button
-							type='primary'
-							className={styles.button}
-							onClick={handleClick}
-						>
-							Начать заново
-						</Button>
-					</div>
-				)}
-			</div>
-		</form>
+						</div>
+					)}
+				</div>
+			</form>
+			<Timer time={Math.ceil(countDown / 1000)} />
+		</>
 	);
 };
 
