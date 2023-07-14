@@ -6,7 +6,7 @@
 
 ## Стек технологий
 
-React, Redux, Redux-Saga, Typescript, Webpack, Json-server
+React, Redux, Redux-Saga, Typescript, Webpack, Node.js, Ant Design
 
 _Линтеры:_ Stylelint, Eslint, Prettier
 
@@ -24,14 +24,14 @@ _Линтеры:_ Stylelint, Eslint, Prettier
   cd quiz-app
 ```
 
-Установка зависимостей
+Устанавливаем зависимости в папках server и client
 
 ```bash
   npm install
 ```
 
-Запуск проекта локально
+Запускаем проекта локально, сначала server, потом client
 
 ```bash
-  npm run dev
+  npm start
 ```
