@@ -10,10 +10,11 @@ import styles from './AuthPage.module.scss';
  * Компонент авторизации
  */
 const AuthPage: FC = () => {
-	const { auth } = useActions();
+	const { auth, changeStatus } = useActions();
 	const [modal, setModal] = useState<null | 'login' | 'register'>(null);
 
 	useEffect(() => {
+		changeStatus('start');
 		auth();
 	}, []);
 
