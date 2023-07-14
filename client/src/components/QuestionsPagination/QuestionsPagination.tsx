@@ -7,16 +7,11 @@ import styles from './QuestionsPagination.module.scss';
 import { QuestionsPaginationProps } from './QuestionsPagination.props';
 
 /**
- *
- * @param isLastPage boolean если страница последняя то true
- * @param isValid boolean валидность формы вопросов
- * @param setIsValid boolean валидность формы
  * @param questionsDivRef ref блока вопросов
+ * @param setIsValid boolean валидность формы
  * @returns
  */
 const QuestionsPagination: FC<QuestionsPaginationProps> = ({
-	isLastPage,
-	isValid,
 	questionsDivRef,
 	setIsLastPage
 }) => {
@@ -37,7 +32,6 @@ const QuestionsPagination: FC<QuestionsPaginationProps> = ({
 				total={questionsCount}
 				pageSize={5}
 				onChange={onChange}
-				disabled={!isValid && !isLastPage}
 			/>
 		</div>
 	);

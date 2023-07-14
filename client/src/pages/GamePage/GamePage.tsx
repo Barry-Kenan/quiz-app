@@ -9,7 +9,6 @@ import styles from './GamePage.module.scss';
  */
 const GamePage: FC = () => {
 	const [isLastPage, setIsLastPage] = useState<boolean>(false);
-	const [isValid, setIsValid] = useState<boolean>(false);
 	const { status } = useAppSelector(state => state.quizReducer);
 
 	const ref = useRef<HTMLDivElement>();
@@ -21,15 +20,9 @@ const GamePage: FC = () => {
 					[styles.finish]: status == 'finish'
 				})}
 			>
-				<QuestionsForm
-					isLastPage={isLastPage}
-					questionsDivRef={ref}
-					setIsValid={setIsValid}
-				/>
+				<QuestionsForm isLastPage={isLastPage} questionsDivRef={ref} />
 				<QuestionsPagination
-					isLastPage={isLastPage}
 					setIsLastPage={setIsLastPage}
-					isValid={isValid}
 					questionsDivRef={ref}
 				/>
 			</div>
