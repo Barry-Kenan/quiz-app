@@ -7,6 +7,7 @@ import {
 	Register
 } from 'store/action-types/auth/auth.types';
 import { authActions } from 'store/actions/auth/auth.actions';
+import { quizActions } from 'store/actions/quiz/quiz.actions';
 
 export function* loginSaga({ payload }: Login) {
 	try {
@@ -34,6 +35,7 @@ export function* logoutSaga() {
 	try {
 		yield authApi.logout();
 		yield put(authActions.logoutUser());
+		yield put(quizActions.changeStatus('start'));
 	} catch (error) {
 		yield put(authActions.setError(error.response.data.message));
 	}
