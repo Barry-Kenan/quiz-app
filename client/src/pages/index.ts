@@ -1,3 +1,4 @@
+export { default as AuthPage } from './AuthPage/AuthPage';
 export { default as GamePage } from './GamePage/GamePage';
 export { default as HomePage } from './HomePage/HomePage';
 export { default as LoginPage } from './LoginPage/LoginPage';
