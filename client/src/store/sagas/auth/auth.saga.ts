@@ -23,7 +23,6 @@ export function* loginSaga({ payload }: Login) {
 export function* registerSaga({ payload }: Register) {
 	try {
 		yield authApi.register(payload);
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { name, ...data } = payload;
 		yield put(authActions.login(data));
 	} catch (error) {
