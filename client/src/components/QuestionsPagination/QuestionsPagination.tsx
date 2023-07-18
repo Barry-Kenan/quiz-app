@@ -21,7 +21,7 @@ const QuestionsPagination: FC<QuestionsPaginationProps> = ({
 	// при изменение страницы запрашивает новые вопросы, проверяет страница последняя или нет и скроллится  вверх
 	const onChange = (page: number, pageSize: number) => {
 		getQuestionsAction({ page, pageSize });
-		setIsLastPage(questionsCount / pageSize == page);
+		setIsLastPage(Math.ceil(questionsCount / pageSize) == page);
 		scrollToTop(questionsDivRef);
 	};
 
