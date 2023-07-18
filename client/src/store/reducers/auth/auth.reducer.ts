@@ -3,7 +3,7 @@ import { AuthAction, AuthActionEnum } from 'store/action-types/auth/auth.types';
 interface AuthState {
 	isAuth: boolean;
 	name: string;
-	id: number;
+	id: string;
 	email: string;
 	error: string;
 }
