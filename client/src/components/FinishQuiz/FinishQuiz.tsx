@@ -9,15 +9,15 @@ const { Title, Text } = Typography;
  * @returns Результаты
  */
 const FinishQuiz: FC = () => {
-	const { count, questionsCount } = useAppSelector(state => state.quizReducer);
+	const { score, questionsCount } = useAppSelector(state => state.quizReducer);
 
 	return (
 		<div className={styles.wrapper}>
 			<Title level={2} className={styles.title}>
 				Игра окончена
 			</Title>
-			<Text mark>Правильных ответов: {count}</Text>
-			<Text mark>Неправильных ответов: {questionsCount - count}</Text>
+			<Text mark>Правильных ответов: {score}</Text>
+			<Text mark>Неправильных ответов: {questionsCount - score}</Text>
 		</div>
 	);
 };

@@ -8,7 +8,7 @@ import {
 
 interface QuizState {
 	loading: boolean;
-	count: number;
+	score: number;
 	status: Status;
 	questions: Question[];
 	questionsCount: number;
@@ -17,7 +17,7 @@ interface QuizState {
 
 const initialState: QuizState = {
 	loading: false,
-	count: 0,
+	score: 0,
 	status: 'start',
 	questions: [],
 	questionsCount: 0,
@@ -27,7 +27,7 @@ const initialState: QuizState = {
 const quizReducer = (state = initialState, action: QuizAction): QuizState => {
 	switch (action.type) {
 		case QuizActionEnum.CHANGE_SCORE:
-			return { ...state, count: action.payload };
+			return { ...state, score: action.payload };
 		case QuizActionEnum.CHANGE_STATUS:
 			return { ...state, status: action.payload };
 		case QuizActionEnum.LOADING:
