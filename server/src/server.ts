@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: ['http://localhost:3000'],
+		origin: ['http://localhost:3000', 'https://quiz-app-fxl4.vercel.app'],
 		credentials: true,
 	})
 );
@@ -28,3 +28,5 @@ app.use('/api/auth', authRouter);
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
+
+export default app;

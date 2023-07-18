@@ -11,6 +11,9 @@ const handleSuccess = (res: Response) => {
 	res.send({ message: 'success' });
 };
 
+/**
+ * Регистрация
+ */
 export const register = async (req: Request, res: Response) => {
 	const { name, email, password } = req.body;
 
@@ -39,6 +42,9 @@ export const register = async (req: Request, res: Response) => {
 	}
 };
 
+/**
+ * Логин
+ */
 export const login = async (req: Request, res: Response) => {
 	const { email, password } = req.body;
 
@@ -62,7 +68,7 @@ export const login = async (req: Request, res: Response) => {
 			id: user.id,
 		},
 		'access_secret',
-		{ expiresIn: '30s' }
+		{ expiresIn: '1h' }
 	);
 
 	const refreshToken = sign(
@@ -76,12 +82,14 @@ export const login = async (req: Request, res: Response) => {
 	res.cookie('accessToken', accessToken, {
 		httpOnly: true,
 		secure: true,
+		sameSite: 'none',
 		maxAge: 24 * 60 * 1000, // 1 day
 	});
 
 	res.cookie('refreshToken', refreshToken, {
 		httpOnly: true,
 		secure: true,
+		sameSite: 'none',
 		maxAge: 7 * 24 * 60 * 1000, // 7 days
 	});
 
@@ -89,6 +97,9 @@ export const login = async (req: Request, res: Response) => {
 	res.send(data);
 };
 
+/**
+ * Проверка аутентификации
+ */
 export const authenticatedUser = async (req: Request, res: Response) => {
 	try {
 		const accessToken = req.cookies['accessToken'];
@@ -114,6 +125,9 @@ export const authenticatedUser = async (req: Request, res: Response) => {
 	}
 };
 
+/**
+ * Обновление access token-а
+ */
 export const refresh = (req: Request, res: Response) => {
 	try {
 		const refreshToken = req.cookies['refreshToken'];
@@ -129,12 +143,13 @@ export const refresh = (req: Request, res: Response) => {
 				id: payload.id,
 			},
 			'access_secret',
-			{ expiresIn: '30s' }
+			{ expiresIn: '1h' }
 		);
 
 		res.cookie('accessToken', accessToken, {
 			httpOnly: true,
 			secure: true,
+			sameSite: 'none',
 			maxAge: 24 * 60 * 1000, // 1 day
 		});
 
