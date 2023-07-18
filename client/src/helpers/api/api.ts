@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IUser } from 'interfaces/user.interface';
 
 export const instanceApi = axios.create({
-	baseURL: 'http://localhost:3001/api/',
+	baseURL: 'https://quiz-app-ten-flame.vercel.app/api/',
 	withCredentials: true
 });
 
