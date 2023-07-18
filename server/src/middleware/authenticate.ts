@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import Users from '../DBs/users.json';
+import { db } from '../server';
 
 const handleError = (res: Response, status: number, error: string) => {
 	res.status(status).send({ message: error });
 };
 
-export const authenticate = (
+export const authenticate = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
@@ -20,7 +20,9 @@ export const authenticate = (
 			return handleError(res, 401, 'Unauthenticated');
 		}
 
-		const user = Users.users.find(users => users.id == payload.id);
+		const userRef = db.collection('users').doc(payload.id);
+		const response = await userRef.get();
+		const user = response.data();
 
 		if (!user) {
 			return handleError(res, 401, 'Unauthenticated');

@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import { sign, verify } from 'jsonwebtoken';
-import Data from '../DBs/users.json';
+import { IUser } from '../interfaces/user';
+import { db } from '../server';
 
 const handleError = (res: Response, status: number, error: string) => {
 	res.status(status).send({ message: error });
@@ -17,9 +18,10 @@ export const register = async (req: Request, res: Response) => {
 		handleError(res, 500, 'Почта и паспорт обязательны');
 	}
 
-	const user = Data.users.find(users => users.email == email);
+	const usersRef = db.collection('users');
+	const users = await usersRef.where('email', '==', email).get();
 
-	if (user) {
+	if (!users.empty) {
 		handleError(
 			res,
 			500,
@@ -27,13 +29,12 @@ export const register = async (req: Request, res: Response) => {
 		);
 	} else {
 		const _user = {
-			id: new Date().valueOf(),
 			name,
 			email,
 			password: await bcrypt.hash(password, 10),
 		};
 
-		Data.users.push(_user);
+		usersRef.add(_user);
 		handleSuccess(res);
 	}
 };
@@ -41,9 +42,14 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
 	const { email, password } = req.body;
 
-	const user = Data.users.find(users => users.email == email);
+	const usersRef = db.collection('users');
+	const users = await usersRef.where('email', '==', email).get();
+	let user: IUser;
+	users.forEach(doc => {
+		user = { id: doc.id, ...doc.data() } as IUser;
+	});
 
-	if (!user) {
+	if (users.empty) {
 		return handleError(res, 400, 'Недействительные учетные данные');
 	}
 
@@ -93,14 +99,16 @@ export const authenticatedUser = async (req: Request, res: Response) => {
 			return handleError(res, 401, 'Вы не авторизованы');
 		}
 
-		const user = Data.users.find(users => users.id == payload.id);
+		const userRef = db.collection('users').doc(payload.id);
+		const response = await userRef.get();
+		const user = response.data();
 
 		if (!user) {
 			return handleError(res, 401, 'Вы не авторизованы');
 		}
 
 		const { password, ...data } = user;
-		res.send(data);
+		res.send({ ...data, id: response.id });
 	} catch (e) {
 		return handleError(res, 401, 'Вы не авторизованы');
 	}

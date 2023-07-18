@@ -1,29 +1,46 @@
 import { Request, Response } from 'express';
-import Quiz from '../DBs/quiz-db.json';
+import { db } from '../server';
 
 const handleError = (res: Response) => {
 	res.status(500).json('Что-то пошло не так');
 };
 
-export const getQuestions = (req: Request, res: Response) => {
-	const { limit = 5, page = 1 } = req.query;
-	const allQuestions = Quiz.questions;
-	const totalCount = Quiz.questions.length;
-	if (allQuestions) {
-		const from = (Number(page) - 1) * Number(limit);
-		const to = from + Number(limit);
-		const questions = allQuestions.slice(from, to);
+export const getQuestions = async (req: Request, res: Response) => {
+	try {
+		const { limit = 5, page = 1 } = req.query;
+		const questionsRef = db.collection('questions');
+		const { count: totalCount } = (await questionsRef.count().get()).data();
+		const response = await questionsRef
+			.limit(Number(limit))
+			.offset((Number(page) - 1) * Number(limit))
+			.get();
+		const questions = [];
+		response.forEach(doc => {
+			const id = doc.id;
+			questions.push({ id, ...doc.data() });
+		});
 		res.status(200).json({ questions, totalCount });
-	} else {
+	} catch (error) {
 		handleError(res);
 	}
 };
 
-export const getAnswers = (req: Request, res: Response) => {
-	const answers = Quiz.answers;
-	if (answers) {
+export const getAnswers = async (req: Request, res: Response) => {
+	try {
+		const questionsRef = db.collection('questions');
+		const response = await questionsRef.get();
+		let answers = {};
+		response.forEach(doc => {
+			const { answer } = doc.data();
+			answers[doc.id] = answer;
+		});
 		res.status(200).json(answers);
-	} else {
+	} catch (error) {
 		handleError(res);
 	}
+};
+
+export const addQuestions = (req: Request, res: Response) => {
+	db.collection('questions').add(req.body);
+	res.send({ message: 'success' });
 };

@@ -1,13 +1,20 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
+import admin from 'firebase-admin';
+import credentials from '../key.json';
 import authRouter from './routes/auth-router';
 import quizRoutes from './routes/quiz-routes';
 
 const PORT = 3001;
+admin.initializeApp({
+	credential: admin.credential.cert(credentials as admin.ServiceAccount),
+});
 
+export const db = admin.firestore();
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
 	cors({
