@@ -1,7 +1,8 @@
 import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
-import { Login, Register } from 'components';
+import { Loading, Login, Register } from 'components';
 import { useActions } from 'hooks/action';
+import { useAppSelector } from 'hooks/redux';
 import { FC, useEffect, useState } from 'react';
 import styles from './AuthPage.module.scss';
 
@@ -10,6 +11,7 @@ import styles from './AuthPage.module.scss';
  */
 const AuthPage: FC = () => {
 	const { auth } = useActions();
+	const { loading } = useAppSelector(state => state.authReducer);
 	const [modal, setModal] = useState<null | 'login' | 'register'>(null);
 
 	useEffect(() => {
@@ -19,6 +21,14 @@ const AuthPage: FC = () => {
 	const handleCancel = () => {
 		setModal(null);
 	};
+
+	if (loading) {
+		return (
+			<div className={styles.wrapper}>
+				<Loading />
+			</div>
+		);
+	}
 
 	return (
 		<div className={styles.wrapper}>
