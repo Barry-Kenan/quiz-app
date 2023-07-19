@@ -16,8 +16,8 @@ const changeStatus = (payload: Status): QuizAction => ({
 	payload
 });
 
-const loading = (payload: boolean): QuizAction => ({
-	type: QuizActionEnum.LOADING,
+const loadingQuestions = (payload: boolean): QuizAction => ({
+	type: QuizActionEnum.LOADING_QUESTIONS,
 	payload
 });
 
@@ -47,7 +47,7 @@ const changeQuestionsCount = (payload: number): QuizAction => ({
 export const quizActions = {
 	changeScore,
 	changeStatus,
-	loading,
+	loadingQuestions,
 	setQuestions,
 	getQuestionsAction,
 	changeQuestionsCount,

@@ -12,7 +12,7 @@ const { quizActions } = rootActions;
 
 function* getData(payload: { page: number; pageSize: number }) {
 	try {
-		yield put(quizActions.loading(true));
+		yield put(quizActions.loadingQuestions(true));
 		const data: QuestionsData = yield quizApi.getQuestions(
 			payload.page,
 			payload.pageSize
@@ -21,7 +21,7 @@ function* getData(payload: { page: number; pageSize: number }) {
 		yield put(quizActions.changeQuestionsCount(data.totalCount));
 		yield put(quizActions.setQuestions(data.questions));
 		yield put(quizActions.setAnswers(answers));
-		yield put(quizActions.loading(false));
+		yield put(quizActions.loadingQuestions(false));
 	} catch (error) {
 		error.response.data.message;
 	}

@@ -4,7 +4,7 @@ import { Question } from 'interfaces/question.interface';
 export enum QuizActionEnum {
 	CHANGE_SCORE = 'CHANGE_SCORE',
 	CHANGE_STATUS = 'CHANGE_STATUS',
-	LOADING = 'LOADING_QUESTIONS',
+	LOADING_QUESTIONS = 'LOADING_QUESTIONS',
 	SET_QUESTIONS = 'SET_QUESTIONS',
 	GET_QUESTIONS = 'GET_QUESTIONS',
 	CHANGE_QUESTIONS_COUNT = 'CHANGE_QUESTIONS_COUNT',
@@ -23,8 +23,8 @@ export interface ChangeStatusAction {
 	payload: Status;
 }
 
-export interface Loading {
-	type: QuizActionEnum.LOADING;
+export interface Loading_QUESTIONS {
+	type: QuizActionEnum.LOADING_QUESTIONS;
 	payload: boolean;
 }
 
@@ -51,7 +51,7 @@ export interface SetAnswers {
 export type QuizAction =
 	| ChangeScoreAction
 	| ChangeStatusAction
-	| Loading
+	| Loading_QUESTIONS
 	| SetQuestions
 	| GetQuestions
 	| ChangeQuestionsCount

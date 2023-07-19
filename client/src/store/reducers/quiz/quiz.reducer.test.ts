@@ -6,7 +6,7 @@ let state: QuizState;
 
 beforeEach(() => {
 	state = {
-		loading: false,
+		loadingQuestions: false,
 		score: 0,
 		status: 'start',
 		questions: [],
@@ -16,8 +16,11 @@ beforeEach(() => {
 });
 
 test('Loading is true', () => {
-	const newState = quizReducer(state, rootActions.quizActions.loading(true));
-	expect(newState.loading).toBeTruthy();
+	const newState = quizReducer(
+		state,
+		rootActions.quizActions.loadingQuestions(true)
+	);
+	expect(newState.loadingQuestions).toBeTruthy();
 });
 
 test('Score is 10', () => {

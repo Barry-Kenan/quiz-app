@@ -7,7 +7,7 @@ import {
 } from 'store/action-types/quiz/quiz.types';
 
 export interface QuizState {
-	loading: boolean;
+	loadingQuestions: boolean;
 	score: number;
 	status: Status;
 	questions: Question[];
@@ -16,7 +16,7 @@ export interface QuizState {
 }
 
 const initialState: QuizState = {
-	loading: false,
+	loadingQuestions: false,
 	score: 0,
 	status: 'start',
 	questions: [],
@@ -33,8 +33,8 @@ export const quizReducer = (
 			return { ...state, score: action.payload };
 		case QuizActionEnum.CHANGE_STATUS:
 			return { ...state, status: action.payload };
-		case QuizActionEnum.LOADING:
-			return { ...state, loading: action.payload };
+		case QuizActionEnum.LOADING_QUESTIONS:
+			return { ...state, loadingQuestions: action.payload };
 		case QuizActionEnum.SET_QUESTIONS:
 			return { ...state, questions: action.payload };
 		case QuizActionEnum.CHANGE_QUESTIONS_COUNT:
