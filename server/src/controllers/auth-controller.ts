@@ -160,8 +160,18 @@ export const refresh = (req: Request, res: Response) => {
 };
 
 export const logout = (req: Request, res: Response) => {
-	res.cookie('accessToken', '', { maxAge: 0 });
-	res.cookie('refreshToken', '', { maxAge: 0 });
+	res.cookie('accessToken', '', {
+		maxAge: 0,
+		secure: true,
+		httpOnly: true,
+		sameSite: 'none',
+	});
+	res.cookie('refreshToken', '', {
+		maxAge: 0,
+		secure: true,
+		httpOnly: true,
+		sameSite: 'none',
+	});
 
 	handleSuccess(res);
 };
