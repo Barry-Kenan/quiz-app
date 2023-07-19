@@ -7,3 +7,10 @@
 		color: #1677ff;
 	}
 }
+
+@media screen and (width < 694px) {
+	.timer {
+		top: 0;
+		left: 50%;
+	}
+}

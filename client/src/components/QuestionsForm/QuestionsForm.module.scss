@@ -6,13 +6,20 @@
 	gap: 10px;
 	height: 100%;
 
+	.loading {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	}
+
 	.questions {
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
 		align-items: center;
 		max-height: 100%;
-		overflow: auto;
+		overflow-y: auto;
 
 		&::-webkit-scrollbar {
 			width: 12px;

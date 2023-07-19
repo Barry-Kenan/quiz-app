@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import cn from 'classnames';
+import Loading from 'components/Loading/Loading';
 import QuestionCard from 'components/QuestionCard/QuestionCard';
 import Timer from 'components/Timer/Timer';
 import { countScore, scrollToTop } from 'helpers/quiz';
@@ -23,17 +24,9 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	questionsDivRef
 }) => {
 	const { changeStatus, changeScore } = useActions();
-	const { questions, answers, status } = useAppSelector(
+	const { questions, answers, status, loadingQuestions } = useAppSelector(
 		state => state.quizReducer
 	);
-	// таймер
-	const time = 70000;
-	const [startAt, setStartAt] = useState<number>();
-	const now = useNow(1000, startAt);
-	const fromStart = now - (startAt ?? now);
-	const countDown = Math.max(0, time - fromStart);
-	const isCounted = countDown == 0;
-
 	const {
 		control,
 		handleSubmit,
@@ -42,6 +35,14 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	} = useForm<IAnswers>();
 
 	const formRef = useRef<HTMLFormElement>();
+
+	// таймер
+	const time = 70000;
+	const [startAt, setStartAt] = useState<number>();
+	const now = useNow(1000, startAt);
+	const fromStart = now - (startAt ?? now);
+	const countDown = Math.max(0, time - fromStart);
+	const isCounted = countDown == 0;
 
 	// подсчет ответов и изменение статуса
 	const result = (data: IAnswers) => {
@@ -63,11 +64,6 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 		}
 	}, [status, isCounted]);
 
-	// вызывается при submit
-	const handleClick = () => {
-		changeStatus('start');
-	};
-
 	// при отправке формы считает количество правильных ответов, меняет статус и скроллится вверх
 	const onSubmit = (formData: IAnswers) => {
 		result(formData);
@@ -81,55 +77,45 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 				className={styles.form}
 				ref={formRef}
 			>
-				<div className={cn(styles.questions)} ref={questionsDivRef}>
-					{questions.length &&
-						questions.map(e => (
-							<Controller
-								key={e.id}
-								control={control}
-								name={e.id}
-								rules={{
-									required: {
-										value: true,
-										message: 'Выберите ответ'
-									}
-								}}
-								render={({ field }) => (
-									<QuestionCard
-										title={e.prompt}
-										choices={e.choices}
-										checked={field.value}
-										setChecked={field.onChange}
-									/>
-								)}
-							/>
-						))}
-				</div>
-				<div>
-					{status != 'finish' ? (
-						<div className={styles.button}>
-							{isLastPage && (
-								<Button
-									type='primary'
-									htmlType='submit'
-									disabled={!isValid || !isDirty}
-								>
-									Завершить игру
-								</Button>
-							)}
-						</div>
-					) : (
-						<div className={styles.button}>
+				{loadingQuestions ? (
+					<div className={styles.loading}>
+						<Loading />
+					</div>
+				) : (
+					<div className={cn(styles.questions)} ref={questionsDivRef}>
+						{questions.length &&
+							questions.map(e => (
+								<Controller
+									key={e.id}
+									control={control}
+									name={e.id}
+									rules={{
+										required: {
+											value: true,
+											message: 'Выберите ответ'
+										}
+									}}
+									render={({ field }) => (
+										<QuestionCard
+											title={e.prompt}
+											choices={e.choices}
+											checked={field.value}
+											setChecked={field.onChange}
+										/>
+									)}
+								/>
+							))}
+						{isLastPage && status != 'finish' && !loadingQuestions && (
 							<Button
 								type='primary'
-								className={styles.button}
-								onClick={handleClick}
+								htmlType='submit'
+								disabled={!isValid || !isDirty}
 							>
-								Начать заново
+								Завершить игру
 							</Button>
-						</div>
-					)}
-				</div>
+						)}
+					</div>
+				)}
 			</form>
 			<Timer
 				time={Math.ceil(time / 1000)}
