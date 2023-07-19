@@ -11,22 +11,28 @@ import { quizActions } from 'store/actions/quiz/quiz.actions';
 
 export function* loginSaga({ payload }: Login) {
 	try {
+		yield put(authActions.onSubmit(true));
 		const data: Omit<IUser, 'password'> = yield authApi
 			.login(payload)
 			.then(res => res.data);
 		yield put(authActions.setUser(data));
+		yield put(authActions.onSubmit(false));
 	} catch (error) {
 		yield put(authActions.setError(error.response.data.message));
+		yield put(authActions.onSubmit(false));
 	}
 }
 
 export function* registerSaga({ payload }: Register) {
 	try {
+		yield put(authActions.onSubmit(true));
 		yield authApi.register(payload);
 		const { name, ...data } = payload;
 		yield put(authActions.login(data));
+		yield put(authActions.onSubmit(false));
 	} catch (error) {
 		yield put(authActions.setError(error.response.data.message));
+		yield put(authActions.onSubmit(false));
 	}
 }
 
@@ -42,11 +48,13 @@ export function* logoutSaga() {
 
 export function* authenticationSaga() {
 	try {
+		yield put(authActions.loading(true));
 		yield authApi.refresh();
 		const data: Omit<IUser, 'password'> = yield authApi.user();
 		yield put(authActions.setUser(data));
+		yield put(authActions.loading(false));
 	} catch (error) {
-		yield put(authActions.setError(error.response.data.message));
+		yield put(authActions.loading(false));
 	}
 }
 

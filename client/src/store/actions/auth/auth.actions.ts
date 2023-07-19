@@ -33,6 +33,16 @@ const auth = (): AuthAction => ({
 	type: AuthActionEnum.AUTH
 });
 
+const loading = (payload: boolean): AuthAction => ({
+	type: AuthActionEnum.LOADING,
+	payload
+});
+
+const onSubmit = (payload: boolean): AuthAction => ({
+	type: AuthActionEnum.ONSUBMIT,
+	payload
+});
+
 export const authActions = {
 	setUser,
 	login,
@@ -40,5 +50,7 @@ export const authActions = {
 	logout,
 	logoutUser,
 	setError,
-	auth
+	auth,
+	loading,
+	onSubmit
 };

@@ -7,7 +7,9 @@ export enum AuthActionEnum {
 	REGISTER = 'REGISTER',
 	LOGOUT = 'LOGOUT',
 	SET_ERROR = 'SET_ERROR',
-	AUTH = 'AUTH'
+	AUTH = 'AUTH',
+	LOADING = 'LOADING',
+	ONSUBMIT = 'ONSUBMIT'
 }
 
 export interface SetUserAction {
@@ -42,6 +44,16 @@ export interface Auth {
 	type: AuthActionEnum.AUTH;
 }
 
+export interface Loading {
+	type: AuthActionEnum.LOADING;
+	payload: boolean;
+}
+
+export interface Onsubmit {
+	type: AuthActionEnum.ONSUBMIT;
+	payload: boolean;
+}
+
 export type AuthAction =
 	| SetUserAction
 	| Login
@@ -49,4 +61,6 @@ export type AuthAction =
 	| Logout
 	| LogoutUser
 	| SetError
-	| Auth;
+	| Auth
+	| Loading
+	| Onsubmit;
