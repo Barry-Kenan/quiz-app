@@ -1,5 +1,6 @@
 import { Button, Input } from 'antd';
 import { useActions } from 'hooks/action';
+import { useAppSelector } from 'hooks/redux';
 import { IUser } from 'interfaces/user.interface';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -10,9 +11,10 @@ import styles from './RegistrationForm.module.scss';
  */
 const RegistrationForm: FC = () => {
 	const { register } = useActions();
+	const { onSubmit: loading } = useAppSelector(state => state.authReducer);
+
 	const {
 		control,
-		reset,
 		clearErrors,
 		formState: { errors },
 		handleSubmit
@@ -20,7 +22,6 @@ const RegistrationForm: FC = () => {
 
 	const onSubmit = (formData: Omit<IUser, 'id'>) => {
 		register(formData);
-		reset();
 	};
 
 	return (
@@ -111,6 +112,8 @@ const RegistrationForm: FC = () => {
 				htmlType='submit'
 				onClick={() => clearErrors()}
 				size='large'
+				loading={loading}
+				disabled={loading}
 			>
 				Отправить
 			</Button>
