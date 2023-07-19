@@ -1,6 +1,5 @@
+import { GamePage, StartPage } from 'components';
 import { useAppSelector } from 'hooks/redux';
-import GamePage from 'pages/GamePage/GamePage';
-import StartPage from 'pages/StartPage/StartPage';
 import { FC } from 'react';
 
 const HomePage: FC = () => {

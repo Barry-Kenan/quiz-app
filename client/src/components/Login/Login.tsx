@@ -4,8 +4,8 @@ import { FC } from 'react';
 /**
  * Компонент Логин
  */
-const LoginPage: FC = () => {
+const Login: FC = () => {
 	return <AuthComponent component='login' />;
 };
 
-export default LoginPage;
+export default Login;

@@ -4,8 +4,8 @@ import { FC } from 'react';
 /**
  * Компонент Регистрации
  */
-const RegisterPage: FC = () => {
+const Register: FC = () => {
 	return <AuthComponent component='register' />;
 };
 
-export default RegisterPage;
+export default Register;
