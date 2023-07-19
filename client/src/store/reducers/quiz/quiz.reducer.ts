@@ -6,7 +6,7 @@ import {
 	Status
 } from 'store/action-types/quiz/quiz.types';
 
-interface QuizState {
+export interface QuizState {
 	loading: boolean;
 	score: number;
 	status: Status;
@@ -24,7 +24,10 @@ const initialState: QuizState = {
 	answers: null
 };
 
-const quizReducer = (state = initialState, action: QuizAction): QuizState => {
+export const quizReducer = (
+	state = initialState,
+	action: QuizAction
+): QuizState => {
 	switch (action.type) {
 		case QuizActionEnum.CHANGE_SCORE:
 			return { ...state, score: action.payload };
