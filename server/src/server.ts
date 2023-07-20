@@ -18,7 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: ['http://localhost:3000', 'https://quiz-app-fxl4.vercel.app'],
+		origin: [
+			'http://localhost:3000',
+			'https://quiz-app-fxl4.vercel.app',
+			'https://quiz-app-54072.web.app',
+		],
 		credentials: true,
 	})
 );
