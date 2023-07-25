@@ -1,12 +1,9 @@
-import { FunctionComponent } from 'react';
-import { Provider } from 'react-redux';
-import { store } from 'store';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import styles from './Layout.module.scss';
 import { LayoutProps } from './Layout.props';
 
-const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children }: LayoutProps) => {
 	return (
 		<div className={styles.wrapper}>
 			<Header className={styles.header} />
@@ -16,18 +13,4 @@ const Layout = ({ children }: LayoutProps) => {
 			<Footer className={styles.footer} />
 		</div>
 	);
-};
-
-export const withLayout = <T extends Record<string, unknown>>(
-	Component: FunctionComponent<T>
-) => {
-	return function withLayoutComponent(props: T): JSX.Element {
-		return (
-			<Provider store={store}>
-				<Layout>
-					<Component {...props} />
-				</Layout>
-			</Provider>
-		);
-	};
 };

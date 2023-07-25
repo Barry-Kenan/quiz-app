@@ -1,7 +1,7 @@
 import 'antd/dist/reset.css';
 import AuthRoutes from 'helpers/guards/AuthRoutes';
 import PrivateRoutes from 'helpers/guards/PrivateRoutes';
-import { withLayout } from 'layout/Layout';
+import { withLayout } from 'layout/LayoutHOC';
 import { AuthPage, Error404, HomePage } from 'pages';
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
