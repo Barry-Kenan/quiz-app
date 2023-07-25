@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 import { IUser } from '../interfaces/user';
 import { db } from '../server';
+import { JwtPayload } from './../interfaces/jwt';
 
 const handleError = (res: Response, status: number, error: string) => {
 	res.status(status).send({ message: error });
@@ -104,7 +105,10 @@ export const authenticatedUser = async (req: Request, res: Response) => {
 	try {
 		const accessToken = req.cookies['accessToken'];
 
-		const payload: any = verify(accessToken, 'access_secret');
+		const payload: JwtPayload = verify(
+			accessToken,
+			'access_secret'
+		) as JwtPayload;
 
 		if (!payload) {
 			return handleError(res, 401, 'Вы не авторизованы');
@@ -132,7 +136,10 @@ export const refresh = (req: Request, res: Response) => {
 	try {
 		const refreshToken = req.cookies['refreshToken'];
 
-		const payload: any = verify(refreshToken, 'refresh_secret');
+		const payload: JwtPayload = verify(
+			refreshToken,
+			'refresh_secret'
+		) as JwtPayload;
 
 		if (!payload) {
 			return handleError(res, 401, 'Вы не авторизованы');

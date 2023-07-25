@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
+import { JwtPayload } from '../interfaces/jwt';
 import { db } from '../server';
 
 const handleError = (res: Response, status: number, error: string) => {
@@ -14,7 +15,10 @@ export const authenticate = async (
 	try {
 		const accessToken = req.cookies['accessToken'];
 
-		const payload: any = verify(accessToken, 'access_secret');
+		const payload: JwtPayload = verify(
+			accessToken,
+			'access_secret'
+		) as JwtPayload;
 
 		if (!payload) {
 			return handleError(res, 401, 'Unauthenticated');
