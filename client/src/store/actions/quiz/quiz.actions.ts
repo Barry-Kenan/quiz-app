@@ -1,5 +1,5 @@
 import { IAnswers } from 'interfaces/answers.interface';
-import { Question } from 'interfaces/question.interface';
+import { IQuestion } from 'interfaces/question.interface';
 import {
 	QuizAction,
 	QuizActionEnum,
@@ -21,7 +21,7 @@ const loadingQuestions = (payload: boolean): QuizAction => ({
 	payload
 });
 
-const setQuestions = (payload: Question[]): QuizAction => ({
+const setQuestions = (payload: IQuestion[]): QuizAction => ({
 	type: QuizActionEnum.SET_QUESTIONS,
 	payload
 });

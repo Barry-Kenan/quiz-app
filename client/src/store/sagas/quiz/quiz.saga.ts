@@ -1,6 +1,6 @@
 import { authApi, quizApi } from 'helpers/api/api';
 import { IAnswers } from 'interfaces/answers.interface';
-import { QuestionsData } from 'interfaces/question.interface';
+import { IQuestionsData } from 'interfaces/question.interface';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 import {
 	GetQuestions,
@@ -13,7 +13,7 @@ const { quizActions } = rootActions;
 function* getData(payload: { page: number; pageSize: number }) {
 	try {
 		yield put(quizActions.loadingQuestions(true));
-		const data: QuestionsData = yield quizApi.getQuestions(
+		const data: IQuestionsData = yield quizApi.getQuestions(
 			payload.page,
 			payload.pageSize
 		);

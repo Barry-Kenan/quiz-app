@@ -1,16 +1,16 @@
-export interface Question {
+export interface IQuestion {
 	id: string;
 	prompt: string;
-	choices: Choice[];
+	choices: IChoice[];
 	answer: string;
 }
 
-export interface Choice {
+export interface IChoice {
 	id: string;
 	content: string;
 }
 
-export interface QuestionsData {
-	questions: Question[];
+export interface IQuestionsData {
+	questions: IQuestion[];
 	totalCount: number;
 }

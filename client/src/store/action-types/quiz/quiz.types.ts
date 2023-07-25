@@ -1,5 +1,5 @@
 import { IAnswers } from 'interfaces/answers.interface';
-import { Question } from 'interfaces/question.interface';
+import { IQuestion } from 'interfaces/question.interface';
 
 export enum QuizActionEnum {
 	CHANGE_SCORE = 'CHANGE_SCORE',
@@ -30,7 +30,7 @@ export interface Loading_QUESTIONS {
 
 export interface SetQuestions {
 	type: QuizActionEnum.SET_QUESTIONS;
-	payload: Question[];
+	payload: IQuestion[];
 }
 
 export interface GetQuestions {

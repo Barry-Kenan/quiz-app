@@ -1,4 +1,4 @@
-import { Question } from 'interfaces/question.interface';
+import { IQuestion } from 'interfaces/question.interface';
 import { rootActions } from 'store/actions/index';
 import quizReducer, { QuizState } from './quiz.reducer';
 
@@ -29,7 +29,7 @@ test('Score is 10', () => {
 });
 
 test('Set questions', () => {
-	const questions: Question[] = [
+	const questions: IQuestion[] = [
 		{
 			id: '1aaa',
 			prompt: 'Столица России',

@@ -1,5 +1,5 @@
 import { IAnswers } from 'interfaces/answers.interface';
-import { Question } from 'interfaces/question.interface';
+import { IQuestion } from 'interfaces/question.interface';
 import {
 	QuizAction,
 	QuizActionEnum,
@@ -10,7 +10,7 @@ export interface QuizState {
 	loadingQuestions: boolean;
 	score: number;
 	status: Status;
-	questions: Question[];
+	questions: IQuestion[];
 	questionsCount: number;
 	answers: IAnswers;
 }
