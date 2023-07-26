@@ -1,8 +1,9 @@
 import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
-import { Loading, Login, Register } from 'components';
+import { Loading } from 'components';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
+import { AuthComponent } from 'modules';
 import { FC, useEffect, useState } from 'react';
 import styles from './AuthPage.module.scss';
 
@@ -45,8 +46,8 @@ const AuthPage: FC = () => {
 				footer={null}
 				closeIcon={true}
 			>
-				{modal == 'login' && <Login />}
-				{modal == 'register' && <Register />}
+				{modal == 'login' && <AuthComponent component='login' />}
+				{modal == 'register' && <AuthComponent component='register' />}
 			</Modal>
 		</div>
 	);

@@ -6,12 +6,11 @@ import Timer from 'components/Timer/Timer';
 import { countScore, scrollToTop } from 'helpers/quiz';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
-import { useNow } from 'hooks/useNow';
 import { IAnswers } from 'interfaces/answers.interface';
-import { FC, useEffect, useRef, useState } from 'react';
+import { GameContext } from 'modules/GamePage/GamePage.context';
+import { FC, useContext, useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styles from './QuestionsForm.module.scss';
-import { QuestionsFormProps } from './QuestionsForm.props';
 
 /**
  * Компонент форма вопросов
@@ -19,14 +18,19 @@ import { QuestionsFormProps } from './QuestionsForm.props';
  * @param questionsDivRef ref блока вопросов
  * @returns форму вопросов
  */
-const QuestionsForm: FC<QuestionsFormProps> = ({
-	isLastPage,
-	questionsDivRef
-}) => {
+const QuestionsForm: FC = () => {
 	const { changeStatus, changeScore } = useActions();
 	const { questions, answers, status, loadingQuestions } = useAppSelector(
 		state => state.quizReducer
 	);
+	const {
+		isLastPage,
+		questionsDivRef,
+		setStartAt,
+		isCounted,
+		timeInSec,
+		countDownInSec
+	} = useContext(GameContext);
 	const {
 		control,
 		handleSubmit,
@@ -35,14 +39,6 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 	} = useForm<IAnswers>();
 
 	const formRef = useRef<HTMLFormElement>();
-
-	// таймер
-	const time = 70000;
-	const [startAt, setStartAt] = useState<number>();
-	const now = useNow(1000, startAt);
-	const fromStart = now - (startAt ?? now);
-	const countDown = Math.max(0, time - fromStart);
-	const isCounted = countDown == 0;
 
 	// подсчет ответов и изменение статуса
 	const result = (data: IAnswers) => {
@@ -117,10 +113,7 @@ const QuestionsForm: FC<QuestionsFormProps> = ({
 					</div>
 				)}
 			</form>
-			<Timer
-				time={Math.ceil(time / 1000)}
-				countDown={Math.ceil(countDown / 1000)}
-			/>
+			<Timer time={timeInSec} countDown={countDownInSec} />
 		</>
 	);
 };

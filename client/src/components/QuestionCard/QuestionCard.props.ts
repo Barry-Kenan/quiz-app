@@ -1,8 +1,8 @@
-import { Choice } from 'interfaces/question.interface';
+import { IChoice } from 'interfaces/question.interface';
 
 export interface QuestionCardProps {
 	title: string;
-	choices: Choice[];
+	choices: IChoice[];
 	checked: string;
 	setChecked: (checked: string) => void;
 }

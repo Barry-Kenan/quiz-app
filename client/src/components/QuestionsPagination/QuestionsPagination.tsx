@@ -2,21 +2,19 @@ import { Pagination } from 'antd';
 import { scrollToTop } from 'helpers/quiz';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
-import { FC } from 'react';
+import { GameContext } from 'modules/GamePage/GamePage.context';
+import { FC, useContext } from 'react';
 import styles from './QuestionsPagination.module.scss';
-import { QuestionsPaginationProps } from './QuestionsPagination.props';
 
 /**
  * @param questionsDivRef ref блока вопросов
  * @param setIsValid boolean валидность формы
  * @returns
  */
-const QuestionsPagination: FC<QuestionsPaginationProps> = ({
-	questionsDivRef,
-	setIsLastPage
-}) => {
+const QuestionsPagination: FC = () => {
 	const { questionsCount } = useAppSelector(state => state.quizReducer);
 	const { getQuestionsAction } = useActions();
+	const { questionsDivRef, setIsLastPage } = useContext(GameContext);
 
 	// при изменение страницы запрашивает новые вопросы, проверяет страница последняя или нет и скроллится  вверх
 	const onChange = (page: number, pageSize: number) => {
