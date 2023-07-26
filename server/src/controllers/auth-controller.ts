@@ -84,14 +84,14 @@ export const login = async (req: Request, res: Response) => {
 		httpOnly: true,
 		secure: true,
 		sameSite: 'none',
-		maxAge: 24 * 60 * 1000, // 1 day
+		maxAge: 60 * 60 * 1000, // 1 hour
 	});
 
 	res.cookie('refreshToken', refreshToken, {
 		httpOnly: true,
 		secure: true,
 		sameSite: 'none',
-		maxAge: 7 * 24 * 60 * 1000, // 7 days
+		maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 	});
 
 	const { password: pass, ...data } = user;
@@ -157,7 +157,7 @@ export const refresh = (req: Request, res: Response) => {
 			httpOnly: true,
 			secure: true,
 			sameSite: 'none',
-			maxAge: 24 * 60 * 1000, // 1 day
+			maxAge: 60 * 60 * 1000, // 1 hour
 		});
 
 		handleSuccess(res);
