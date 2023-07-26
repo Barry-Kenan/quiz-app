@@ -25,12 +25,7 @@ const QuestionsPagination: FC = () => {
 
 	return (
 		<div className={styles.pagination}>
-			<Pagination
-				defaultCurrent={1}
-				total={questionsCount}
-				pageSize={5}
-				onChange={onChange}
-			/>
+			<Pagination total={questionsCount} pageSize={5} onChange={onChange} />
 		</div>
 	);
 };
