@@ -31,12 +31,7 @@ const QuestionsForm: FC = () => {
 		timeInSec,
 		countDownInSec
 	} = useContext(GameContext);
-	const {
-		control,
-		handleSubmit,
-		getValues,
-		formState: { isValid, isDirty }
-	} = useForm<IAnswers>();
+	const { control, handleSubmit, getValues } = useForm<IAnswers>();
 
 	const formRef = useRef<HTMLFormElement>();
 
@@ -85,12 +80,6 @@ const QuestionsForm: FC = () => {
 									key={e.id}
 									control={control}
 									name={e.id}
-									rules={{
-										required: {
-											value: true,
-											message: 'Выберите ответ'
-										}
-									}}
 									render={({ field }) => (
 										<QuestionCard
 											title={e.prompt}
@@ -102,11 +91,7 @@ const QuestionsForm: FC = () => {
 								/>
 							))}
 						{isLastPage && status != 'finish' && !loadingQuestions && (
-							<Button
-								type='primary'
-								htmlType='submit'
-								disabled={!isValid || !isDirty}
-							>
+							<Button type='primary' htmlType='submit'>
 								Завершить игру
 							</Button>
 						)}
