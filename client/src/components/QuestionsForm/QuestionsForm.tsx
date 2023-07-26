@@ -3,6 +3,7 @@ import cn from 'classnames';
 import Loading from 'components/Loading/Loading';
 import QuestionCard from 'components/QuestionCard/QuestionCard';
 import Timer from 'components/Timer/Timer';
+import Up from 'components/Up/Up';
 import { countScore, scrollToTop } from 'helpers/quiz';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
@@ -97,6 +98,7 @@ const QuestionsForm: FC = () => {
 						)}
 					</div>
 				)}
+				<Up questionsDivRef={questionsDivRef} />
 			</form>
 			<Timer time={timeInSec} countDown={countDownInSec} />
 		</>

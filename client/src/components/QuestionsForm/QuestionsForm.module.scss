@@ -1,6 +1,7 @@
 @use 'styles/scss' as *;
 
 .form {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
