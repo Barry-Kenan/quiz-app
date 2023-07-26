@@ -6,3 +6,4 @@ export { default as QuestionsForm } from './QuestionsForm/QuestionsForm';
 export { default as QuestionsPagination } from './QuestionsPagination/QuestionsPagination';
 export { default as RegistrationForm } from './RegistrationForm/RegistrationForm';
 export { default as Timer } from './Timer/Timer';
+export { default as Up } from './Up/Up';
