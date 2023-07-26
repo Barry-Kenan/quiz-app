@@ -3,7 +3,7 @@ import { Button, Modal } from 'antd';
 import { Loading } from 'components';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
-import { AuthComponent } from 'modules';
+import { Auth } from 'modules';
 import { FC, useEffect, useState } from 'react';
 import styles from './AuthPage.module.scss';
 
@@ -46,8 +46,8 @@ const AuthPage: FC = () => {
 				footer={null}
 				closeIcon={true}
 			>
-				{modal == 'login' && <AuthComponent component='login' />}
-				{modal == 'register' && <AuthComponent component='register' />}
+				{modal == 'login' && <Auth component='login' />}
+				{modal == 'register' && <Auth component='register' />}
 			</Modal>
 		</div>
 	);

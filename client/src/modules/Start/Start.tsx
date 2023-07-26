@@ -1,14 +1,14 @@
 import { Button, Typography } from 'antd';
 import { useActions } from 'hooks/action';
 import { FC, useEffect } from 'react';
-import styles from './StartPage.module.scss';
+import styles from './Start.module.scss';
 
 const { Title } = Typography;
 
 /**
  * Компонент начальной страницы
  */
-const StartPage: FC = () => {
+const Start: FC = () => {
 	const { changeStatus, getQuestionsAction } = useActions();
 
 	// при клике меняет статус
@@ -32,4 +32,4 @@ const StartPage: FC = () => {
 	);
 };
 
-export default StartPage;
+export default Start;

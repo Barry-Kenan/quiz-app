@@ -1,3 +1,3 @@
-export { default as AuthComponent } from './AuthComponent/AuthComponent';
-export { default as GamePage } from './GamePage/GamePage';
-export { default as StartPage } from './StartPage/StartPage';
+export { default as Auth } from './Auth/Auth';
+export { default as Game } from './Game/Game';
+export { default as Start } from './Start/Start';

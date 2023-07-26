@@ -3,8 +3,8 @@ import { LoginForm, RegistrationForm } from 'components';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
 import { FC, useEffect } from 'react';
-import styles from './AuthComponent.module.scss';
-import { AuthComponentProps } from './AuthComponent.props';
+import styles from './Auth.module.scss';
+import { AuthProps } from './Auth.props';
 
 const { Title } = Typography;
 
@@ -13,7 +13,7 @@ const { Title } = Typography;
  * @param component: "login" | "register"
  * @returns
  */
-const AuthComponent: FC<AuthComponentProps> = ({ component }) => {
+const Auth: FC<AuthProps> = ({ component }) => {
 	const [api, contextHolder] = notification.useNotification();
 	const { error } = useAppSelector(state => state.authReducer);
 	const { setError } = useActions();
@@ -46,4 +46,4 @@ const AuthComponent: FC<AuthComponentProps> = ({ component }) => {
 	);
 };
 
-export default AuthComponent;
+export default Auth;

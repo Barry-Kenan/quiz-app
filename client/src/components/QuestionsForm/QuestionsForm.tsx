@@ -7,7 +7,7 @@ import { countScore, scrollToTop } from 'helpers/quiz';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
 import { IAnswers } from 'interfaces/answers.interface';
-import { GameContext } from 'modules/GamePage/GamePage.context';
+import { GameContext } from 'modules/Game/Game.context';
 import { FC, useContext, useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styles from './QuestionsForm.module.scss';

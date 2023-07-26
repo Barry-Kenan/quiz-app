@@ -2,13 +2,13 @@ import cn from 'classnames';
 import { FinishQuiz, QuestionsForm, QuestionsPagination } from 'components';
 import { useAppSelector } from 'hooks/redux';
 import { FC } from 'react';
-import { GameContextProvider } from './GamePage.context';
-import styles from './GamePage.module.scss';
+import { GameContextProvider } from './Game.context';
+import styles from './Game.module.scss';
 
 /**
  * Компонент игры
  */
-const GamePage: FC = () => {
+const Game: FC = () => {
 	const { status } = useAppSelector(state => state.quizReducer);
 	return (
 		<GameContextProvider>
@@ -27,4 +27,4 @@ const GamePage: FC = () => {
 	);
 };
 
-export default GamePage;
+export default Game;
