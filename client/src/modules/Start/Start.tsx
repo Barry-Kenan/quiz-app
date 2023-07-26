@@ -1,5 +1,6 @@
 import { Button, Typography } from 'antd';
 import { useActions } from 'hooks/action';
+import { useAppSelector } from 'hooks/redux';
 import { FC, useEffect } from 'react';
 import styles from './Start.module.scss';
 
@@ -10,6 +11,7 @@ const { Title } = Typography;
  */
 const Start: FC = () => {
 	const { changeStatus, getQuestionsAction } = useActions();
+	const { loadingQuestions } = useAppSelector(state => state.quizReducer);
 
 	// при клике меняет статус
 	const handleClick = () => {
@@ -25,7 +27,12 @@ const Start: FC = () => {
 			<Title level={2} className={styles.title}>
 				Квиз
 			</Title>
-			<Button type='primary' className={styles.button} onClick={handleClick}>
+			<Button
+				type='primary'
+				className={styles.button}
+				onClick={handleClick}
+				loading={loadingQuestions}
+			>
 				Начать Игру
 			</Button>
 		</div>
