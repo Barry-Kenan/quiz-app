@@ -46,14 +46,19 @@ export function* logoutSaga() {
 	}
 }
 
+function* user() {
+	const data: Omit<IUser, 'password'> = yield authApi.user();
+	yield put(authActions.setUser(data));
+	yield put(authActions.loading(false));
+}
+
 export function* authenticationSaga() {
 	try {
 		yield put(authActions.loading(true));
-		yield authApi.refresh();
-		const data: Omit<IUser, 'password'> = yield authApi.user();
-		yield put(authActions.setUser(data));
-		yield put(authActions.loading(false));
+		yield user();
 	} catch (error) {
+		yield authApi.refresh();
+		yield user();
 		yield put(authActions.loading(false));
 	}
 }
