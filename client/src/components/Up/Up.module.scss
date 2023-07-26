@@ -1,7 +1,11 @@
 .up {
 	position: absolute;
-	right: 30px;
-	bottom: 30px;
+	right: 20px;
+	bottom: 20px;
 	height: 40px;
 	border-radius: 10px;
+
+	&.hidden {
+		display: none;
+	}
 }

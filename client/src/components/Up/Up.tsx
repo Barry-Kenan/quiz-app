@@ -1,5 +1,6 @@
 import { CaretUpOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import cn from 'classnames';
 import { scrollToTop } from 'helpers/quiz';
 import { useScrollY } from 'hooks/useScrollY';
 import { useEffect, useRef } from 'react';
@@ -22,7 +23,9 @@ const Up = ({
 		<Button
 			type='primary'
 			onClick={() => scrollToTop(questionsDivRef)}
-			className={styles.up}
+			className={cn(styles.up, {
+				[styles.hidden]: y == 0
+			})}
 			ref={ref}
 		>
 			<CaretUpOutlined />
