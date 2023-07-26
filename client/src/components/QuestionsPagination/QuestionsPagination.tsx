@@ -16,10 +16,15 @@ const QuestionsPagination: FC = () => {
 	const { getQuestionsAction } = useActions();
 	const { questionsDivRef, setIsLastPage } = useContext(GameContext);
 
+	const isLastPage = (pageSize: number, page: number) => {
+		const isLast = Math.ceil(questionsCount / pageSize) == page;
+		return isLast;
+	};
+
 	// при изменение страницы запрашивает новые вопросы, проверяет страница последняя или нет и скроллится  вверх
 	const onChange = (page: number, pageSize: number) => {
 		getQuestionsAction({ page, pageSize });
-		setIsLastPage(Math.ceil(questionsCount / pageSize) == page);
+		setIsLastPage(isLastPage(pageSize, page));
 		scrollToTop(questionsDivRef);
 	};
 
