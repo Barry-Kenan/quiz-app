@@ -2,7 +2,7 @@ import { Pagination } from 'antd';
 import { scrollToTop } from 'helpers/quiz';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
-import { GameContext } from 'modules/Game/Game.context';
+import { GameContext } from 'modules/Game/context/Game.context';
 import { FC, useContext } from 'react';
 import styles from './QuestionsPagination.module.scss';
 

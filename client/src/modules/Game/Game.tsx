@@ -2,8 +2,8 @@ import cn from 'classnames';
 import { FinishQuiz, QuestionsForm, QuestionsPagination } from 'components';
 import { useAppSelector } from 'hooks/redux';
 import { FC } from 'react';
-import { GameContextProvider } from './Game.context';
 import styles from './Game.module.scss';
+import { GameContextProvider } from './context/Game.context';
 
 /**
  * Компонент игры
