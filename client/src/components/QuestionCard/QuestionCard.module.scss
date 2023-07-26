@@ -5,6 +5,14 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
-		width: 300px;
+		width: 400px;
+	}
+}
+
+@media screen and (width < 694px) {
+	.card {
+		.choices {
+			width: 250px;
+		}
 	}
 }
