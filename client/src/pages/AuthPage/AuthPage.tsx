@@ -33,11 +33,21 @@ const AuthPage: FC = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<Button type='link' size='large' onClick={() => setModal('login')}>
-				Login <LoginOutlined />
+			<Button
+				className={styles.button}
+				type='link'
+				size='large'
+				onClick={() => setModal('login')}
+			>
+				Логин <LoginOutlined />
 			</Button>
-			<Button type='link' size='large' onClick={() => setModal('register')}>
-				Register <UserAddOutlined />
+			<Button
+				className={styles.button}
+				type='link'
+				size='large'
+				onClick={() => setModal('register')}
+			>
+				Регистрация <UserAddOutlined />
 			</Button>
 			<Modal
 				open={!!modal}
