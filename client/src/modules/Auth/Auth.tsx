@@ -2,7 +2,7 @@ import { Card, Typography, notification } from 'antd';
 import { LoginForm, RegistrationForm } from 'components';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
-import { FC, useEffect } from 'react';
+import { FC, memo, useEffect } from 'react';
 import styles from './Auth.module.scss';
 import { AuthProps } from './Auth.props';
 
@@ -13,7 +13,7 @@ const { Title } = Typography;
  * @param component: "login" | "register"
  * @returns
  */
-const Auth: FC<AuthProps> = ({ component }) => {
+const Auth: FC<AuthProps> = memo(({ component }) => {
 	const [api, contextHolder] = notification.useNotification();
 	const { error } = useAppSelector(state => state.authReducer);
 	const { setError } = useActions();
@@ -44,6 +44,6 @@ const Auth: FC<AuthProps> = ({ component }) => {
 			</Card>
 		</div>
 	);
-};
+});
 
 export default Auth;

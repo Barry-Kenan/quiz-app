@@ -1,6 +1,6 @@
 import { Progress } from 'antd';
 import { secondsToHms } from 'helpers/quiz';
-import { FC, useMemo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import styles from './Timer.module.scss';
 import { TimerProps } from './Timer.props';
 
@@ -9,9 +9,12 @@ import { TimerProps } from './Timer.props';
  * @param time начальная время таймера
  * @param countDown таймер
  */
-const Timer: FC<TimerProps> = ({ time, countDown }) => {
+const Timer: FC<TimerProps> = memo(({ time, countDown }) => {
 	const forPercent = useMemo(() => 100 / time, [time]);
-	const isSmall = window.innerWidth < 694 ?? false;
+	const isSmall = useMemo(
+		() => window.innerWidth < 694 ?? false,
+		[window.innerWidth]
+	);
 
 	if (countDown == 0) {
 		return <></>;
@@ -30,6 +33,6 @@ const Timer: FC<TimerProps> = ({ time, countDown }) => {
 			/>
 		</div>
 	);
-};
+});
 
 export default Timer;
