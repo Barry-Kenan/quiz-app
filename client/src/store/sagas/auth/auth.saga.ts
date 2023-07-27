@@ -47,15 +47,19 @@ export function* logoutSaga() {
 }
 
 function* user() {
-	const data: Omit<IUser, 'password'> = yield authApi.user();
-	yield put(authActions.setUser(data));
-	yield put(authActions.loading(false));
+	try {
+		const data: Omit<IUser, 'password'> = yield authApi.user();
+		yield put(authActions.setUser(data));
+	} catch (error) {
+		error.message;
+	}
 }
 
 export function* authenticationSaga() {
 	try {
 		yield put(authActions.loading(true));
 		yield user();
+		yield put(authActions.loading(false));
 	} catch (error) {
 		yield authApi.refresh();
 		yield user();
