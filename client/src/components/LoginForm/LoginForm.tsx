@@ -1,10 +1,13 @@
-import { Button, Input } from 'antd';
+import { Button, Input, Typography } from 'antd';
+import { emailRegexp } from 'helpers/regexp';
 import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
-import { IUser } from 'interfaces/user.interface';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { ILoginForm } from './LoginForm.interface';
 import styles from './LoginForm.module.scss';
+
+const { Text } = Typography;
 
 /**
  * Форма для логина
@@ -17,10 +20,14 @@ const LoginForm: FC = () => {
 		clearErrors,
 		formState: { errors },
 		handleSubmit
-	} = useForm<Omit<IUser, 'id' | 'name'>>();
+	} = useForm<ILoginForm>();
 
-	const onSubmit = (formData: Omit<IUser, 'id' | 'name'>) => {
+	const onSubmit = (formData: ILoginForm) => {
 		login(formData);
+	};
+
+	const errorMessage = (message: string) => {
+		return <Text type='danger'>{message}</Text>;
 	};
 
 	return (
@@ -34,13 +41,12 @@ const LoginForm: FC = () => {
 						message: 'Введите email'
 					},
 					validate: {
-						matchPattern: v =>
-							/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-							'Введите правильный email'
+						matchPattern: v => emailRegexp.test(v) || 'Введите правильный email'
 					}
 				}}
 				render={({ field }) => (
-					<>
+					<div>
+						<label>Почта:</label>
 						<Input
 							onChange={field.onChange}
 							value={field.value}
@@ -48,10 +54,8 @@ const LoginForm: FC = () => {
 							size='large'
 							placeholder='sputnik@mail.ru'
 						/>
-						{errors.email && (
-							<span className={styles.error}> {errors.email.message}</span>
-						)}
-					</>
+						{errors.email && errorMessage(errors.email.message)}
+					</div>
 				)}
 			/>
 			<Controller
@@ -64,7 +68,8 @@ const LoginForm: FC = () => {
 					}
 				}}
 				render={({ field }) => (
-					<>
+					<div>
+						<label>Пароль:</label>
 						<Input.Password
 							onChange={field.onChange}
 							value={field.value}
@@ -72,10 +77,8 @@ const LoginForm: FC = () => {
 							size='large'
 							placeholder='*******'
 						/>
-						{errors.password && (
-							<span className={styles.error}> {errors.password.message}</span>
-						)}
-					</>
+						{errors.password && errorMessage(errors.password.message)}
+					</div>
 				)}
 			/>
 			<Button
