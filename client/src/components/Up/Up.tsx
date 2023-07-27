@@ -3,14 +3,11 @@ import { Button } from 'antd';
 import cn from 'classnames';
 import { scrollToTop } from 'helpers/quiz';
 import { useScrollY } from 'hooks/useScrollY';
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import styles from './Up.module.scss';
+import { UpProps } from './Up.props';
 
-const Up = ({
-	questionsDivRef
-}: {
-	questionsDivRef: React.MutableRefObject<HTMLDivElement>;
-}) => {
+const Up: FC<UpProps> = ({ questionsDivRef }) => {
 	const y = useScrollY(questionsDivRef);
 	const ref = useRef<HTMLButtonElement>();
 	useEffect(() => {
