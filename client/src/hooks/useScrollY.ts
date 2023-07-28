@@ -5,7 +5,7 @@ export const useScrollY = (ref: MutableRefObject<HTMLDivElement>): number => {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			const currentScrollY = ref.current.scrollTop;
+			const currentScrollY = ref.current?.scrollTop;
 			setScrollY(currentScrollY);
 		};
 		ref.current.addEventListener('scroll', handleScroll, { passive: true });

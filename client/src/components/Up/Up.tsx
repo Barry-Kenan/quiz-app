@@ -12,7 +12,7 @@ const Up: FC<UpProps> = ({ questionsDivRef }) => {
 	const ref = useRef<HTMLButtonElement>();
 	useEffect(() => {
 		ref.current.style.opacity = (
-			y / questionsDivRef.current.scrollHeight
+			y / questionsDivRef.current?.scrollHeight
 		).toString();
 	}, [y]);
 
