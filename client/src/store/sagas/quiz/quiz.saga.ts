@@ -23,7 +23,7 @@ function* getData(payload: { page: number; pageSize: number }) {
 		yield put(quizActions.setAnswers(answers));
 		yield put(quizActions.loadingQuestions(false));
 	} catch (error) {
-		error.response.data.message;
+		yield put(quizActions.loadingQuestions(false));
 	}
 }
 

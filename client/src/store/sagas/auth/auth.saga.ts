@@ -6,8 +6,8 @@ import {
 	Login,
 	Register
 } from 'store/action-types/auth/auth.types';
-import { authActions } from 'store/actions/auth/auth.actions';
 import { quizActions } from 'store/actions/quiz/quiz.actions';
+import { authActions } from './../../actions/auth/auth.actions';
 
 export function* loginSaga({ payload }: Login) {
 	try {
@@ -50,18 +50,30 @@ function* user() {
 	try {
 		const data: Omit<IUser, 'password'> = yield authApi.user();
 		yield put(authActions.setUser(data));
+		yield put(authActions.loading(false));
 	} catch (error) {
-		yield authApi.refresh();
+		yield put(authActions.loading(false));
+		yield put(authActions.setError(error.response.data.message));
+	}
+}
+
+function* refresh() {
+	try {
+		const status: number = yield authApi.refresh().then(res => res.status);
+		if (status == 200) {
+			yield user();
+		}
+	} catch {
+		yield put(authActions.loading(false));
 	}
 }
 
 export function* authenticationSaga() {
 	try {
 		yield put(authActions.loading(true));
-		yield user();
-		yield put(authActions.loading(false));
+		yield refresh();
 	} catch (error) {
-		yield put(authActions.loading(false));
+		error.message;
 	}
 }
 
