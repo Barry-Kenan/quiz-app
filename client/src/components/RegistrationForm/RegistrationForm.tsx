@@ -4,7 +4,10 @@ import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { IRegistrationForm } from './RegistrationForm.interface';
+import {
+	IRegistrationForm,
+	IRegistrationFormValue
+} from './RegistrationForm.interface';
 import styles from './RegistrationForm.module.scss';
 
 const { Text } = Typography;
@@ -32,112 +35,110 @@ const RegistrationForm: FC = () => {
 		return <Text type='danger'>{message}</Text>;
 	};
 
+	// данные формы
+	const registrationFormValues: IRegistrationFormValue[] = [
+		{
+			name: 'name',
+			rules: {
+				required: {
+					value: true,
+					message: 'Введите имя'
+				},
+				validate: {
+					maxLength: v =>
+						v.length <= 10 || 'Имя должно содержать меньше 10 символов'
+				}
+			},
+			label: 'Имя:',
+			type: 'input',
+			placeholder: 'John'
+		},
+		{
+			name: 'email',
+			rules: {
+				required: {
+					value: true,
+					message: 'Введите email'
+				},
+				validate: {
+					matchPattern: (v: string) =>
+						emailRegexp.test(v) || 'Введите правильный email'
+				}
+			},
+			label: 'Почта:',
+			type: 'input',
+			placeholder: 'sputnik@mail.ru'
+		},
+		{
+			name: 'password',
+			rules: {
+				required: {
+					value: true,
+					message: 'Введите пароль'
+				},
+				validate: {
+					minLength: (val: string) =>
+						val.length > 3 || 'Пароль должен содержать больше 3 символов'
+				}
+			},
+			label: 'Пароль:',
+			type: 'password',
+			placeholder: '*******'
+		},
+		{
+			name: 'confirm_password',
+			rules: {
+				required: {
+					value: true,
+					message: 'Повторите пароль'
+				},
+				validate: {
+					matchPassword: (val: string) =>
+						watch('password') == val || 'Пароли не совпадают'
+				}
+			},
+			label: 'Подтвердите пароль:',
+			type: 'password',
+			placeholder: '*******'
+		}
+	];
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-			<Controller
-				name='name'
-				control={control}
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите имя'
-					},
-					validate: {
-						maxLength: v =>
-							v.length <= 10 || 'Имя должно содержать меньше 10 символов'
-					}
-				}}
-				render={({ field }) => (
-					<div>
-						<label>Имя:</label>
-						<Input
-							onChange={field.onChange}
-							value={field.value}
-							status={errors.name && 'error'}
-							size='large'
-							placeholder='John'
-						/>
-						{errors.name && errorMessage(errors.name.message)}
-					</div>
-				)}
-			/>
-			<Controller
-				name='email'
-				control={control}
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите email'
-					},
-					validate: {
-						matchPattern: v => emailRegexp.test(v) || 'Введите правильный email'
-					}
-				}}
-				render={({ field }) => (
-					<div>
-						<label>Почта:</label>
-						<Input
-							onChange={field.onChange}
-							value={field.value}
-							status={errors.email && 'error'}
-							size='large'
-							placeholder='sputnik@mail.ru'
-						/>
-						{errors.email && errorMessage(errors.email.message)}
-					</div>
-				)}
-			/>
-			<Controller
-				name='password'
-				control={control}
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите пароль'
-					},
-					validate: (val: string) =>
-						val.length > 3 || 'Пароль должен содержать больше 3 символов'
-				}}
-				render={({ field }) => (
-					<div>
-						<label>Пароль:</label>
-						<Input.Password
-							onChange={field.onChange}
-							value={field.value}
-							status={errors.password && 'error'}
-							size='large'
-							placeholder='*******'
-						/>
-						{errors.password && errorMessage(errors.password.message)}
-					</div>
-				)}
-			/>
-			<Controller
-				name='confirm_password'
-				control={control}
-				rules={{
-					required: {
-						value: true,
-						message: 'Повторите пароль'
-					},
-					validate: (val: string) =>
-						watch('password') == val || 'Пароли не совпадают'
-				}}
-				render={({ field }) => (
-					<div>
-						<label>Подтвердите пароль:</label>
-						<Input.Password
-							onChange={field.onChange}
-							value={field.value}
-							status={errors.confirm_password && 'error'}
-							size='large'
-							placeholder='*******'
-						/>
-						{errors.confirm_password &&
-							errorMessage(errors.confirm_password.message)}
-					</div>
-				)}
-			/>
+			{registrationFormValues.map(e => (
+				<Controller
+					key={e.name}
+					name={e.name}
+					control={control}
+					rules={{
+						...e.rules
+					}}
+					render={({ field }) => (
+						<div>
+							<label>{e.label}</label>
+							{e.type == 'input' ? (
+								<Input
+									onChange={field.onChange}
+									value={field.value}
+									status={errors[e.name] && 'error'}
+									size='large'
+									placeholder={e.placeholder}
+								/>
+							) : (
+								<Input.Password
+									onChange={field.onChange}
+									value={field.value}
+									status={errors[e.name] && 'error'}
+									size='large'
+									placeholder={e.placeholder}
+								/>
+							)}
+
+							{errors[e.name] && errorMessage(errors[e.name].message)}
+						</div>
+					)}
+				/>
+			))}
 			<Button
 				type='primary'
 				htmlType='submit'

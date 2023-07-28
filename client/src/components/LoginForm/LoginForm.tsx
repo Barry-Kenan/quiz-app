@@ -4,7 +4,7 @@ import { useActions } from 'hooks/action';
 import { useAppSelector } from 'hooks/redux';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ILoginForm } from './LoginForm.interface';
+import { ILoginForm, ILoginFormValue } from './LoginForm.interface';
 import styles from './LoginForm.module.scss';
 
 const { Text } = Typography;
@@ -30,57 +30,74 @@ const LoginForm: FC = () => {
 		return <Text type='danger'>{message}</Text>;
 	};
 
+	// данные формы
+	const loginFormValues: ILoginFormValue[] = [
+		{
+			name: 'email',
+			rules: {
+				required: {
+					value: true,
+					message: 'Введите email'
+				},
+				validate: {
+					matchPattern: (v: string) =>
+						emailRegexp.test(v) || 'Введите правильный email'
+				}
+			},
+			label: 'Почта:',
+			type: 'input',
+			placeholder: 'sputnik@mail.ru'
+		},
+		{
+			name: 'password',
+			rules: {
+				required: {
+					value: true,
+					message: 'Введите пароль'
+				}
+			},
+			label: 'Пароль:',
+			type: 'password',
+			placeholder: '*******'
+		}
+	];
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-			<Controller
-				name='email'
-				control={control}
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите email'
-					},
-					validate: {
-						matchPattern: v => emailRegexp.test(v) || 'Введите правильный email'
-					}
-				}}
-				render={({ field }) => (
-					<div>
-						<label>Почта:</label>
-						<Input
-							onChange={field.onChange}
-							value={field.value}
-							status={errors.email && 'error'}
-							size='large'
-							placeholder='sputnik@mail.ru'
-						/>
-						{errors.email && errorMessage(errors.email.message)}
-					</div>
-				)}
-			/>
-			<Controller
-				name='password'
-				control={control}
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите пароль'
-					}
-				}}
-				render={({ field }) => (
-					<div>
-						<label>Пароль:</label>
-						<Input.Password
-							onChange={field.onChange}
-							value={field.value}
-							status={errors.password && 'error'}
-							size='large'
-							placeholder='*******'
-						/>
-						{errors.password && errorMessage(errors.password.message)}
-					</div>
-				)}
-			/>
+			{loginFormValues.map(e => (
+				<Controller
+					key={e.name}
+					name={e.name}
+					control={control}
+					rules={{
+						...e.rules
+					}}
+					render={({ field }) => (
+						<div>
+							<label>{e.label}</label>
+							{e.type == 'input' ? (
+								<Input
+									onChange={field.onChange}
+									value={field.value}
+									status={errors[e.name] && 'error'}
+									size='large'
+									placeholder={e.placeholder}
+								/>
+							) : (
+								<Input.Password
+									onChange={field.onChange}
+									value={field.value}
+									status={errors[e.name] && 'error'}
+									size='large'
+									placeholder={e.placeholder}
+								/>
+							)}
+
+							{errors[e.name] && errorMessage(errors[e.name].message)}
+						</div>
+					)}
+				/>
+			))}
 			<Button
 				type='primary'
 				htmlType='submit'
