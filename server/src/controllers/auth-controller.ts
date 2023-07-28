@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { Request, Response } from 'express';
+import { CookieOptions, Request, Response } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 import { IUser } from '../interfaces/user';
 import { db } from '../server';
@@ -10,6 +10,12 @@ const handleError = (res: Response, status: number, error: string) => {
 };
 const handleSuccess = (res: Response) => {
 	res.send({ message: 'success' });
+};
+
+const cookieOptions: CookieOptions = {
+	httpOnly: true,
+	secure: true,
+	sameSite: 'none',
 };
 
 /**
@@ -81,16 +87,12 @@ export const login = async (req: Request, res: Response) => {
 	);
 
 	res.cookie('accessToken', accessToken, {
-		httpOnly: true,
-		secure: true,
-		sameSite: 'none',
+		...cookieOptions,
 		maxAge: 60 * 60 * 1000, // 1 hour
 	});
 
 	res.cookie('refreshToken', refreshToken, {
-		httpOnly: true,
-		secure: true,
-		sameSite: 'none',
+		...cookieOptions,
 		maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 	});
 
@@ -154,9 +156,7 @@ export const refresh = (req: Request, res: Response) => {
 		);
 
 		res.cookie('accessToken', accessToken, {
-			httpOnly: true,
-			secure: true,
-			sameSite: 'none',
+			...cookieOptions,
 			maxAge: 60 * 60 * 1000, // 1 hour
 		});
 
@@ -168,16 +168,12 @@ export const refresh = (req: Request, res: Response) => {
 
 export const logout = (req: Request, res: Response) => {
 	res.cookie('accessToken', '', {
+		...cookieOptions,
 		maxAge: 0,
-		secure: true,
-		httpOnly: true,
-		sameSite: 'none',
 	});
 	res.cookie('refreshToken', '', {
+		...cookieOptions,
 		maxAge: 0,
-		secure: true,
-		httpOnly: true,
-		sameSite: 'none',
 	});
 
 	handleSuccess(res);
