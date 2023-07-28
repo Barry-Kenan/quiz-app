@@ -51,7 +51,7 @@ function* user() {
 		const data: Omit<IUser, 'password'> = yield authApi.user();
 		yield put(authActions.setUser(data));
 	} catch (error) {
-		error.message;
+		yield authApi.refresh();
 	}
 }
 
@@ -61,8 +61,6 @@ export function* authenticationSaga() {
 		yield user();
 		yield put(authActions.loading(false));
 	} catch (error) {
-		yield authApi.refresh();
-		yield user();
 		yield put(authActions.loading(false));
 	}
 }
