@@ -31,7 +31,7 @@ const QuestionCard: FC<QuestionCardProps> = memo(
 								checked={checked == k.id}
 								name={k.id}
 								onChange={onChange}
-								disabled={status == 'finish'}
+								disabled={status === 'finish'}
 							>
 								{k.content}
 							</Checkbox>

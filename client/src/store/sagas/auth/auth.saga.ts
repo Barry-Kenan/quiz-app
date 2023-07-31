@@ -60,7 +60,7 @@ function* user() {
 function* refresh() {
 	try {
 		const status: number = yield authApi.refresh().then(res => res.status);
-		if (status == 200) {
+		if (status === 200) {
 			yield user();
 		}
 	} catch {

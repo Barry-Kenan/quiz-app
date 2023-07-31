@@ -5,7 +5,7 @@ import { FC } from 'react';
 const HomePage: FC = () => {
 	const { status } = useAppSelector(state => state.quizReducer);
 
-	if (status == 'start') {
+	if (status === 'start') {
 		return <Start />;
 	} else {
 		return <Game />;

@@ -45,7 +45,7 @@ const QuestionsForm: FC = () => {
 	};
 
 	useEffect(() => {
-		if (status == 'play') {
+		if (status === 'play') {
 			setStartAt(Date.now);
 			if (isCounted) {
 				const data = getValues();

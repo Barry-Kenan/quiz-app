@@ -15,13 +15,13 @@ const Game: FC = () => {
 			<div className={styles.wrapper}>
 				<div
 					className={cn(styles.questionsBlock, {
-						[styles.finish]: status == 'finish'
+						[styles.finish]: status === 'finish'
 					})}
 				>
 					<QuestionsForm />
 					<QuestionsPagination />
 				</div>
-				{status == 'finish' ? <FinishQuiz /> : <></>}
+				{status === 'finish' ? <FinishQuiz /> : <></>}
 			</div>
 		</GameContextProvider>
 	);
