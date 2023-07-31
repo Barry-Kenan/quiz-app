@@ -1,4 +1,5 @@
 export { default as FinishQuiz } from './FinishQuiz/FinishQuiz';
+export { default as FormButton } from './FormButton/FormButton';
 export { default as Loading } from './Loading/Loading';
 export { default as LoginForm } from './LoginForm/LoginForm';
 export { default as QuestionCard } from './QuestionCard/QuestionCard';
