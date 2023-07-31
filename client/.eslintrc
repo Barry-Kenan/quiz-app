@@ -14,7 +14,8 @@
 		"react-hooks/exhaustive-deps": "off",
 		"no-case-declarations": "off",
 		"no-unused-vars": "off",
-		"@typescript-eslint/no-unused-vars": "off"
+		"@typescript-eslint/no-unused-vars": "off",
+		"no-console": "warn"
 	},
 	"extends": [
 		"eslint:recommended",
