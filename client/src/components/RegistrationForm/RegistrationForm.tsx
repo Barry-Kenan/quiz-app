@@ -1,5 +1,5 @@
-import { Typography } from 'antd';
 import FormButton from 'components/FormButton/FormButton';
+import FormErrorMessage from 'components/FormErrorMessage/FormErrorMessage';
 import FormInput from 'components/FormInput/FormInput';
 import { useActions } from 'hooks/action';
 import { FC } from 'react';
@@ -8,7 +8,6 @@ import { getRegistrationFormValues } from './RegistrationForm.data';
 import { IRegistrationForm } from './RegistrationForm.interface';
 import styles from './RegistrationForm.module.scss';
 
-const { Text } = Typography;
 /**
  * Форма для регистрации
  */
@@ -30,10 +29,6 @@ const RegistrationForm: FC = () => {
 
 	const clearFormErrors = () => {
 		clearErrors();
-	};
-
-	const errorMessage = (message: string) => {
-		return <Text type='danger'>{message}</Text>;
 	};
 
 	// данные формы
@@ -59,7 +54,9 @@ const RegistrationForm: FC = () => {
 								isError={!!errors[e.name]}
 								type={e.type}
 							/>
-							{errors[e.name] && errorMessage(errors[e.name].message)}
+							{errors[e.name] && (
+								<FormErrorMessage message={errors[e.name].message} />
+							)}
 						</div>
 					)}
 				/>

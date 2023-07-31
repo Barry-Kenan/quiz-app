@@ -1,5 +1,6 @@
 export { default as FinishQuiz } from './FinishQuiz/FinishQuiz';
 export { default as FormButton } from './FormButton/FormButton';
+export { default as FormErrorMessage } from './FormErrorMessage/FormErrorMessage';
 export { default as FormInput } from './FormInput/FormInput';
 export { default as Loading } from './Loading/Loading';
 export { default as LoginForm } from './LoginForm/LoginForm';

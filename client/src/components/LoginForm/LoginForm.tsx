@@ -1,22 +1,18 @@
-import { Typography } from 'antd';
 import FormButton from 'components/FormButton/FormButton';
+import FormErrorMessage from 'components/FormErrorMessage/FormErrorMessage';
 import FormInput from 'components/FormInput/FormInput';
 import { useActions } from 'hooks/action';
-import { useAppSelector } from 'hooks/redux';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { getLoginFormValues } from './LoginForm.data';
 import { ILoginForm } from './LoginForm.interface';
 import styles from './LoginForm.module.scss';
 
-const { Text } = Typography;
-
 /**
  * Форма для логина
  */
 const LoginForm: FC = () => {
 	const { login } = useActions();
-	const { onSubmit: loading } = useAppSelector(state => state.authReducer);
 	const {
 		control,
 		clearErrors,
@@ -30,10 +26,6 @@ const LoginForm: FC = () => {
 
 	const clearFormErrors = () => {
 		clearErrors();
-	};
-
-	const errorMessage = (message: string) => {
-		return <Text type='danger'>{message}</Text>;
 	};
 
 	// данные формы
@@ -59,7 +51,9 @@ const LoginForm: FC = () => {
 								isError={!!errors[e.name]}
 								type={e.type}
 							/>
-							{errors[e.name] && errorMessage(errors[e.name].message)}
+							{errors[e.name] && (
+								<FormErrorMessage message={errors[e.name].message} />
+							)}
 						</div>
 					)}
 				/>
