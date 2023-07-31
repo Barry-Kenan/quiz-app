@@ -1,7 +1,11 @@
+export enum FormInputTypeEnum {
+	INPUT = 'input',
+	PASSWORD = 'password'
+}
 export interface IFormValue {
 	rules: IRules;
 	label: string;
-	type: 'input' | 'password';
+	type: FormInputTypeEnum;
 	placeholder: string;
 }
 
