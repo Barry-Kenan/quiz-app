@@ -16,10 +16,14 @@ const Up: FC<UpProps> = ({ questionsDivRef }) => {
 		).toString();
 	}, [y]);
 
+	const handleClick = () => {
+		scrollToTop(questionsDivRef);
+	};
+
 	return (
 		<Button
 			type='primary'
-			onClick={() => scrollToTop(questionsDivRef)}
+			onClick={handleClick}
 			className={cn(styles.up, {
 				[styles.hidden]: y == 0
 			})}

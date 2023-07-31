@@ -23,6 +23,14 @@ const AuthPage: FC = () => {
 		setModal(null);
 	};
 
+	const handleSetRegister = () => {
+		setModal('register');
+	};
+
+	const handleSetLogin = () => {
+		setModal('login');
+	};
+
 	if (loading) {
 		return (
 			<div className={styles.wrapper}>
@@ -37,7 +45,7 @@ const AuthPage: FC = () => {
 				className={styles.button}
 				type='link'
 				size='large'
-				onClick={() => setModal('login')}
+				onClick={handleSetLogin}
 			>
 				Логин <LoginOutlined />
 			</Button>
@@ -45,7 +53,7 @@ const AuthPage: FC = () => {
 				className={styles.button}
 				type='link'
 				size='large'
-				onClick={() => setModal('register')}
+				onClick={handleSetRegister}
 			>
 				Регистрация <UserAddOutlined />
 			</Button>
